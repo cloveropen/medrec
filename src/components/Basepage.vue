@@ -3,7 +3,8 @@
     <v-navigation-drawer
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
-      app>
+      app
+    >
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -30,8 +31,9 @@
             </template>
             <v-list-item
               v-for="(child, i) in item.children"
-              :key="i" 
-              @click="clickMenu(child.id)">
+              :key="i"
+              @click="clickMenu(child.id)"
+            >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -57,7 +59,7 @@
       app
       color="blue darken-3"
       dark
-      >
+    >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <span class="hidden-sm-and-down">病案统计</span>
@@ -93,7 +95,7 @@
           dark
           fab
           fixed
-          right 
+          right
           @click="clickMenu('logout')"
           v-on="on"
           ><v-icon>add</v-icon>
@@ -151,8 +153,7 @@ export default {
         localStorage.removeItem("user");
         this.$router.push({ path: "/login" });
       }
-      switch (tstr)
-      {
+      switch (tstr) {
         case "out_reg":
           this.$router.push({ path: "/outreg" });
           break;
