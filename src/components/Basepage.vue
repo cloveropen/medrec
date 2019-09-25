@@ -115,32 +115,29 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: "contacts", text: "门诊挂号", id: "out_reg" },
-      { icon: "history", text: "划价收款", id: "out_cash" },
-      { icon: "content_copy", text: "交班结算", id: "out_chk" },
-      { icon: "keyboard", text: "发票号管理", id: "out_receipt" },
+      { icon: "contacts", text: "病案接收", id: "receive" },
+      { icon: "history", text: "催交病案", id: "urge" },
+      { icon: "content_copy", text: "解锁病案", id: "unlock" },
       {
         icon: "keyboard_arrow_up",
         "icon-alt": "keyboard_arrow_down",
-        text: "查询与统计",
-        model: true,
+        text: "病案借阅",
+        model: false,
         children: [
-          { text: "挂号明细", id: "detail_reg" },
-          { text: "收款明细", id: "detail_cash" },
-          { text: "交班明细", id: "detail_chk" },
-          { text: "退号退款明细", id: "detail_undo" },
-          { text: "操作日志", id: "detail_op" }
+          { text: "纸质病案借阅登记", id: "lend_paper" },
+          { text: "纸质病案归还登记", id: "back_paper" },
+          { text: "网络病案调阅登记", id: "lend_net" },
+          { text: "患者微信病案借阅预约", id: "weixin_reg" }
         ]
       },
       {
         icon: "settings",
         "icon-alt": "keyboard_arrow_down",
-        text: "管理与维护",
+        text: "病案输出",
         model: false,
         children: [
-          { text: "收费词典查询", id: "mg_dict" },
-          { text: "数据分析", id: "mg_analyse" },
-          { text: "发票管理", id: "mg_invoice" }
+          { text: "病案复印登记", id: "copy_reg" },
+          { text: "病案打印", id: "prn_rec" }
         ]
       },
       { icon: "help", text: "退出登录", id: "logout" }
