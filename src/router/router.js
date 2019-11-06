@@ -27,6 +27,42 @@ export const router = new Router({
       name: "login",
       component: () =>
         import(/* webpackChunkName: "login" */ "../views/Login.vue")
+    },
+    {
+      path: "/query",
+      name: "query",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/Query.vue")
+    },
+    {
+      path: "/receive",
+      name: "receive",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/Receive.vue")
+    },
+    {
+      path: "/urge",
+      name: "urge",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/Urge.vue")
+    },
+    {
+      path: "/unlock",
+      name: "unlock",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/Unlock.vue")
+    },
+    {
+      path: "/dictIcd10",
+      name: "dictIcd10",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/DictIcd10.vue")
+    },
+    {
+      path: "/medrecinfo",
+      name: "medrecinfo",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/Medrecinfo.vue")
     }
   ]
 });

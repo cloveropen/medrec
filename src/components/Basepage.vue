@@ -1,10 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer
-      v-model="drawer"
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -29,11 +25,7 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
-            <v-list-item
-              v-for="(child, i) in item.children"
-              :key="i"
-              @click="clickMenu(child.id)"
-            >
+            <v-list-item v-for="(child, i) in item.children" :key="i" @click="clickMenu(child.id)">
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -54,12 +46,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="blue darken-3"
-      dark
-    >
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-3" dark>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <span class="hidden-sm-and-down">病案统计</span>
@@ -89,20 +76,18 @@
     </v-container>-->
     <v-tooltip right>
       <template v-slot:activator="{ on }">
-        <v-btn
-          bottom
-          color="pink"
-          dark
-          fab
-          fixed
-          right
-          @click="clickMenu('logout')"
-          v-on="on"
-          ><v-icon>add</v-icon>
+        <v-btn bottom color="pink" dark fab fixed right @click="clickMenu('home')" v-on="on">
+          <v-icon>home</v-icon>
         </v-btn>
       </template>
-      <span>退出登录</span>
+      <span>返回主页</span>
     </v-tooltip>
+    <v-footer absolute class="font-weight-medium" >
+      <v-col class="text-center" cols="12" >
+        {{ new Date().getFullYear() }} —
+        <strong>cloveropen</strong>
+      </v-col>
+    </v-footer>
   </div>
 </template>
 
@@ -151,45 +136,36 @@ export default {
         this.$router.push({ path: "/login" });
       }
       switch (tstr) {
-        case "out_reg":
-          this.$router.push({ path: "/outreg" });
+        case "receive":
+          this.$router.push({ path: "/receive" });
           break;
-        case "out_cash":
-          this.$router.push({ path: "/outcash" });
+        case "urge":
+          this.$router.push({ path: "/urge" });
           break;
-        case "out_chk":
-          this.$router.push({ path: "/outchk" });
+        case "unlock":
+          this.$router.push({ path: "/unlock" });
           break;
-        case "out_receipt":
-          this.$router.push({ path: "/outreceipt" });
+        case "lend_paper":
+          this.$router.push({ path: "/lend_paper" });
           break;
-        case "detail_reg":
-          this.$router.push({ path: "/detailreg" });
+        case "back_paper":
+          this.$router.push({ path: "/back_paper" });
           break;
-        case "detail_cash":
-          this.$router.push({ path: "/detailcash" });
+        case "lend_net":
+          this.$router.push({ path: "/lend_net" });
           break;
-        case "detail_chk":
-          this.$router.push({ path: "/detailchk" });
+        case "weixin_reg":
+          this.$router.push({ path: "/weixin_reg" });
           break;
-        case "detail_undo":
-          this.$router.push({ path: "/detailundo" });
+        case "copy_reg":
+          this.$router.push({ path: "/copy_reg" });
           break;
-        case "detail_op":
-          this.$router.push({ path: "/detailop" });
-          break;
-        case "mg_dict":
-          this.$router.push({ path: "/mgdict" });
-          break;
-        case "mg_analyse":
-          this.$router.push({ path: "/mganalyse" });
-          break;
-        case "mg_invoice":
-          this.$router.push({ path: "/mginvoice" });
+        case "prn_rec":
+          this.$router.push({ path: "/prn_rec" });
           break;
         default:
-          localStorage.removeItem("user");
-          this.$router.push({ path: "/login" });
+         // localStorage.removeItem("user");
+          this.$router.push({ path: "/" });
       }
     },
 

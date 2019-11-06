@@ -12,7 +12,7 @@
 
       <v-flex xs12>
         <div align="center">
-          <h1 class="display-2 font-weight-bold mb-3">病案统计</h1>
+          <h1 class="display-2 font-weight-bold mb-3">病案统计系统</h1>
         </div>
       </v-flex>
 
@@ -28,9 +28,9 @@
                   <v-text-field
                     v-model="username"
                     :rules="nameRules"
-                    :counter="4"
                     label="用户编码"
                     required
+                    prepend-icon="person"
                   ></v-text-field>
                 </v-flex>
 
@@ -41,13 +41,19 @@
                     label="密码"
                     required
                     type="password"
+                    prepend-icon="lock"
                   ></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
-                  <v-btn color="success" :disabled="!valid" @click="loginSubmit"
-                    >登录</v-btn
+                  <v-btn
+                    color="success"
+                    large
+                    :disabled="!valid"
+                    @click="loginSubmit"
                   >
+                    登录
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -106,13 +112,39 @@ export default {
           return response.json();
         })
         .then(function(data) {
-          //window.alert("data="+JSON.stringify(data)); // this will be a string
+          // console.log("data=" + JSON.stringify(data)); // this will be a string
           let topstatus = data.opstatus;
           if (topstatus === "200") {
             localStorage.setItem("user", JSON.stringify(data));
             // this.loginmsg = "";
             //sel.$parent.$router.push({ path: "/" });
             sel.$parent.$router.push({ path: "/" });
+            // 提交保存登录凭证数据
+            data.hsp_code = process.env.VUE_APP_HSP_CODE;
+            var date = new Date();
+            data.valid_time = date.toUTCString();
+            // -----------------------------------------------------------------------------------------------
+            fetch(process.env.VUE_APP_LOGINREC_URL + "/savetgc", {
+              method: "POST", // or 'PUT'
+              body: JSON.stringify(data), // data can be `string` or {object}!
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(function(response) {
+                if (response.ok) {
+                  //window.alert('ok');
+                } else {
+                  window.alert("登录失败error");
+                  sel.loginmsg = "登录失败" + response.err;
+                }
+                return response.json();
+              })
+              .then(function(data) {
+                console.log("保存成功=" + JSON.stringify(data));
+              });
+            // ------------------------------------------------------------------------------------------------
+    
           } else {
             //登录失败
             window.alert("登录失败!\n");

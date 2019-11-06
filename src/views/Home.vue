@@ -17,15 +17,15 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="success" fab x-large dark @click="clickItem('query')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
                         患者病案查询
                       </div>
                     </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
+                    <v-spacer>&emsp;&emsp;</v-spacer>
+                    <v-spacer>&emsp;&emsp;</v-spacer>
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
@@ -41,7 +41,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="success" fab x-large dark @click="clickItem('unlock')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -55,7 +55,6 @@
               </template>
             </v-hover>
           </v-flex>
-          <v-spacer>&emsp;&emsp;</v-spacer><v-spacer>&emsp;&emsp;</v-spacer>
 
           <v-flex d-flex>
             <!-- Using a dynamic class -->
@@ -108,8 +107,6 @@
               </template>
             </v-hover>
           </v-flex>
-          <v-spacer>&emsp;&emsp;</v-spacer><v-spacer>&emsp;&emsp;</v-spacer>
-
           <v-flex d-flex>
             <v-hover>
               <template v-slot="{ hover }">
@@ -172,7 +169,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="success" fab x-large dark @click="clickItem('medrec_info')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -210,7 +207,6 @@
               </template>
             </v-hover>
           </v-flex>
-
           <v-flex d-flex>
             <v-hover>
               <template v-slot="{ hover }">
@@ -274,7 +270,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="success" fab x-large dark @click="clickItem('dict_icd10')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -323,6 +319,60 @@ import Basepage from "../components/Basepage";
 export default {
   components: {
     Basepage
+  },
+  methods: {
+    clickItem(tstr) {
+      console.log("点击=" + tstr);
+      if (tstr === "logout") {
+        localStorage.removeItem("user");
+        this.$router.push({ path: "/login" });
+      }
+      switch (tstr) {
+        case "query":
+          this.$router.push({ path: "/query" });
+          break;
+        case "out_cash":
+          this.$router.push({ path: "/outcash" });
+          break;
+        case "unlock":
+          this.$router.push({ path: "/unlock" });
+          break;
+        case "out_receipt":
+          this.$router.push({ path: "/outreceipt" });
+          break;
+        case "detail_reg":
+          this.$router.push({ path: "/detailreg" });
+          break;
+        case "detail_cash":
+          this.$router.push({ path: "/detailcash" });
+          break;
+        case "detail_chk":
+          this.$router.push({ path: "/detailchk" });
+          break;
+        case "detail_undo":
+          this.$router.push({ path: "/detailundo" });
+          break;
+        case "detail_op":
+          this.$router.push({ path: "/detailop" });
+          break;
+        case "mg_dict":
+          this.$router.push({ path: "/mgdict" });
+          break;
+        case "medrec_info":
+          this.$router.push({ path: "/medrecinfo" });
+          break;
+        case "dict_icd10":
+          this.$router.push({ path: "/dictIcd10" });
+          break;
+        default:
+          localStorage.removeItem("user");
+          this.$router.push({ path: "/login" });
+      }
+    },
+
+    selectSource() {
+      window.location.href = "http://localhost:8888";
+    }
   }
 };
 </script>
