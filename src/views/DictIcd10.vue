@@ -28,13 +28,13 @@
       <!-- 按条件查询  -->
       <v-row>
         <v-col cols="8" sm="6" md="3">
-          <v-text-field label="请输入疾病编码" outlined></v-text-field>
+          <v-text-field label="请输入疾病编码" outlined v-model="diseaseCode"></v-text-field>
         </v-col>
          <v-col cols="8" sm="6" md="3">
-          <v-text-field label="请输入疾病名称" outlined></v-text-field>
+          <v-text-field label="请输入疾病名称" outlined v-model="diseaseName"></v-text-field>
         </v-col>
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="findBycodeOrName()">查 询</v-btn>
         </v-col>
       </v-row>
       <v-data-table
@@ -58,11 +58,48 @@ export default {
   components: {
     Basepage
   },
+  mounted:
+   function () {
+      let sel = this;
+          fetch(process.env.VUE_APP_MAIN_URL+"dictIcd10", {
+              method: "get",
+              mode: "cors", 
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+        })
+        .then(function(response) {
+          if (response.ok) {
+          } else {
+            window.alert("查询失败error");
+            sel.loginmsg = "查询失败" + response.err;
+          }
+          return response.json();
+        })
+        .then(function(data) {
+           console.log("data=" + JSON.stringify(data)); // this will be a string
+          let topstatus = data.resultCode;
+          if (topstatus == "0") {
+           console.log(topstatus); // this will be a string
+           sel.desserts=JSON.parse(data.outdata);
+          } else {
+            //查询失败
+            window.alert("查询失败!\n");
+            sel.loginmsg = "查询失败";
+          }
+        })
+        .catch(function(err) {
+          window.alert("error=" + err);
+        });
+    },
   data: () => ({
     dateBegin: new Date().toISOString().substr(0, 10),
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    diseaseCode:"",
+    diseaseName:"",
     items: [
       {
         text: "疾病目录",
@@ -72,27 +109,62 @@ export default {
     ],
     page: 1,
     pageCount: 0,
-    itemsPerPage: 2,
+    itemsPerPage: 50,
     headers: [
       {
         text: "疾病编码",
         textcolor:"red",
         align: "left",
         sortable: false,
-        value: "pid"
+        value: "diseaseCode"
       },
-      { text: "疾病名称", value: "patientName" }
+      { text: "疾病名称", value: "diseaseName" }
     ],
-    desserts: [
-      {
-        pid: "Z00000067835",
-        patientName: "1预覆盖URhioff阿克苏"
-      },
-      {
-        pid: "Z00000067835",
-        patientName: "2预覆盖URhioff阿克苏"
-      }
-    ]
-  })
+    desserts:[]
+  }),
+  methods:{
+    findBycodeOrName(){
+     let sel = this;
+     let v_diseaseCode = sel.diseaseCode;
+     let v_diseaseName = sel.diseaseName;
+     if (v_diseaseCode==""){
+         v_diseaseCode=null;
+     };
+     if (v_diseaseName==""){
+         v_diseaseName=null;
+     }
+          fetch(process.env.VUE_APP_MAIN_URL+"dictIcd10/"+v_diseaseCode+"/"+v_diseaseName, {
+              method: "get",
+              mode: "cors", 
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+        })
+        .then(function(response) {
+          if (response.ok) {
+          } else {
+            window.alert("查询失败error");
+            sel.loginmsg = "查询失败" + response.err;
+          }
+          return response.json();
+        })
+        .then(function(data) {
+           console.log("data=" + JSON.stringify(data)); // this will be a string
+          let topstatus = data.resultCode;
+          if (topstatus == "0") {
+           console.log(topstatus); // this will be a string
+           sel.desserts=JSON.parse(data.outdata);
+          } else {
+            //查询失败
+            window.alert("查询失败!\n");
+            sel.loginmsg = "查询失败";
+          }
+        })
+        .catch(function(err) {
+          window.alert("error=" + err);
+        }); 
+    }
+  }
 };
 </script>

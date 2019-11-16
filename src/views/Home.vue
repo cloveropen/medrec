@@ -369,7 +369,6 @@ export default {
           this.$router.push({ path: "/login" });
       }
     },
-
     selectSource() {
       window.location.href = "http://localhost:8888";
     }

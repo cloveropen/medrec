@@ -63,6 +63,11 @@ export const router = new Router({
       name: "medrecinfo",
       component: () =>
         import(/* webpackChunkName: "query" */ "../views/Medrecinfo.vue")
+    },{
+      path: "/data_audit",
+      name: "data_audit",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/DataAudit.vue")
     }
   ]
 });

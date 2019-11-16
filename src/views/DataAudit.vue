@@ -4,7 +4,7 @@
     <v-container>
       <div>
         <v-toolbar>
-          <v-toolbar-title>病案查询</v-toolbar-title>
+          <v-toolbar-title>数据审核</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -76,16 +76,16 @@ export default {
     menu1: false,
     menu2: false,
     items: [
-      {
-        text: "病案导入",
-        disabled: false,
-        href: "breadcrumbs_dashboard"
-      },
-      {
-        text: "患者信息查询",
-        disabled: true,
-        href: "breadcrumbs_link_1"
-      }
+    //   {
+    //     text: "病案导入",
+    //     disabled: false,
+    //     href: "breadcrumbs_dashboard"
+    //   },
+    //   {
+    //     text: "患者信息查询",
+    //     disabled: true,
+    //     href: "breadcrumbs_link_1"
+    //   }
     ],
     headers: [
       {

@@ -4,7 +4,7 @@
     <v-container>
       <div>
         <v-toolbar>
-          <v-toolbar-title>病案查询</v-toolbar-title>
+          <v-toolbar-title>卫统表</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -69,7 +69,42 @@ import Basepage from "../components/Basepage";
 export default {
   components: {
     Basepage
-  },
+  }, 
+  mounted:
+   function () {
+      let sel = this;
+          fetch(process.env.VUE_APP_MAIN_URL+"medrec", {
+              method: "get",
+              mode: "cors", 
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+        })
+        .then(function(response) {
+          if (response.ok) {
+          } else {
+            window.alert("查询失败error");
+            sel.loginmsg = "查询失败" + response.err;
+          }
+          return response.json();
+        })
+        .then(function(data) {
+           console.log("data=" + JSON.stringify(data)); // this will be a string
+          let topstatus = data.resultCode;
+          if (topstatus == "0") {
+           console.log(topstatus); // this will be a string
+           sel.desserts=JSON.parse(data.outdata);
+          } else {
+            //查询失败
+            window.alert("查询失败!\n");
+            sel.loginmsg = "查询失败";
+          }
+        })
+        .catch(function(err) {
+          window.alert("error=" + err);
+        });
+    },
   data: () => ({
     dateBegin: new Date().toISOString().substr(0, 10),
     dateEnd: new Date().toISOString().substr(0, 10),
@@ -77,39 +112,26 @@ export default {
     menu2: false,
     items: [
       {
-        text: "病案导入",
-        disabled: false,
-        href: "breadcrumbs_dashboard"
-      },
-      {
-        text: "患者信息查询",
+        text: "患者查询",
         disabled: true,
-        href: "breadcrumbs_link_1"
+        href: "medrecinfoQuery"
       }
     ],
     headers: [
       {
-        text: "住院号",
+        text: "病案号",
         align: "left",
         sortable: false,
-        value: "pid"
+        value: "caseNo"
       },
-      { text: "姓名", value: "patientName" },
-      { text: "性别", value: "sex" },
+      { text: "姓名", value: "pname" },
+      { text: "性别", value: "gender" },
       { text: "年龄", value: "age" },
-      { text: "身份证号", value: "idCardNo" },
-      { text: "医保卡号", value: "iron" }
+      { text: "出生日期", value: "birthday" },
+      { text: "现住址", value: "presentAddr" }
+      
     ],
-    desserts: [
-      {
-        pid: "Z00000067835",
-        patientName: "张天",
-        sex: "男",
-        age: 24,
-        idCardNo: "12345678900099",
-        iron: "1%"
-      }
-    ]
+    desserts: []
   })
 };
 </script>

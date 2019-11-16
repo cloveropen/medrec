@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+    <v-navigation-drawer v-model="drawer" app>
+      <v-toolbar app style="background-color:rgb(34,184,253);">
+        <v-toolbar-title class="ml-0 pl-4">
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <span class="hidden-sm-and-down">病案统计</span>
+        </v-toolbar-title>
+      </v-toolbar>
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -46,11 +52,8 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-3" dark>
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <span class="hidden-sm-and-down">病案统计</span>
-      </v-toolbar-title>
+    <v-app-bar app>
+      
       <v-spacer></v-spacer>
       <v-tooltip right>
         <template v-slot:activator="{ on }">
@@ -82,12 +85,12 @@
       </template>
       <span>返回主页</span>
     </v-tooltip>
-    <v-footer absolute class="font-weight-medium" >
+    <!-- <v-footer absolute class="font-weight-medium" >
       <v-col class="text-center" cols="12" >
         {{ new Date().getFullYear() }} —
         <strong>cloveropen</strong>
       </v-col>
-    </v-footer>
+    </v-footer>-->
   </div>
 </template>
 
@@ -100,12 +103,21 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: "contacts", text: "病案接收", id: "receive" },
-      { icon: "history", text: "催交病案", id: "urge" },
-      { icon: "content_copy", text: "解锁病案", id: "unlock" },
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
+        icon: "keyboard_arrow_down",
+        "icon-alt":"keyboard_arrow_right",
+        text: "病案接收",
+        model: false,
+        children: [
+          { icon: "assignment", text: "病案录入", id: "receive" },
+          { icon: "hourglass_full", text: "病案查询", id: "query" },
+          { icon: "supervisor_account", text: "数据审核", id: "data_audit" },
+          { icon: "file_upload", text: "数据上报", id: "data_upload" }
+        ]
+      },
+      {
+        icon: "keyboard_arrow_down",
+        "icon-alt":"keyboard_arrow_right",
         text: "病案借阅",
         model: false,
         children: [
@@ -115,9 +127,22 @@ export default {
           { text: "患者微信病案借阅预约", id: "weixin_reg" }
         ]
       },
+       {
+       icon: "keyboard_arrow_down",
+        "icon-alt":"keyboard_arrow_right",
+        text: "统计报表",
+        model: false,
+        id: "receive",
+        children: [
+          { text: "病房日报", id: "lend_paper" },
+          { text: "门诊日报", id: "back_paper" },
+          { text: "数据审核", id: "lend_net" },
+          { text: "数据上报", id: "weixin_reg" }
+        ]
+      },
       {
-        icon: "settings",
-        "icon-alt": "keyboard_arrow_down",
+        icon: "keyboard_arrow_down",
+        "icon-alt":"keyboard_arrow_right",
         text: "病案输出",
         model: false,
         children: [
@@ -125,6 +150,8 @@ export default {
           { text: "病案打印", id: "prn_rec" }
         ]
       },
+      { icon: "history", text: "催交病案", id: "urge" },
+      { icon: "content_copy", text: "解锁病案", id: "unlock" },
       { icon: "help", text: "退出登录", id: "logout" }
     ]
   }),
@@ -139,14 +166,14 @@ export default {
         case "receive":
           this.$router.push({ path: "/receive" });
           break;
-        case "urge":
-          this.$router.push({ path: "/urge" });
+        case "query":
+          this.$router.push({ path: "/query" });
           break;
-        case "unlock":
-          this.$router.push({ path: "/unlock" });
+        case "data_audit":
+          this.$router.push({ path: "/data_audit" });
           break;
-        case "lend_paper":
-          this.$router.push({ path: "/lend_paper" });
+        case "data_upload":
+          this.$router.push({ path: "/data_upload" });
           break;
         case "back_paper":
           this.$router.push({ path: "/back_paper" });
@@ -164,11 +191,10 @@ export default {
           this.$router.push({ path: "/prn_rec" });
           break;
         default:
-         // localStorage.removeItem("user");
+          // localStorage.removeItem("user");
           this.$router.push({ path: "/" });
       }
     },
-
     selectSource() {
       window.location.href = "http://www.cloveropen.com";
     }
