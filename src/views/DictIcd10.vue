@@ -150,10 +150,9 @@ export default {
           return response.json();
         })
         .then(function(data) {
-           console.log("data=" + JSON.stringify(data)); // this will be a string
+           console.log(JSON.parse(data.outdata)); // this will be a string
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-           console.log(topstatus); // this will be a string
            sel.desserts=JSON.parse(data.outdata);
           } else {
             //查询失败

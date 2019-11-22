@@ -398,13 +398,34 @@
               <v-checkbox class="abc" label="2.否" value></v-checkbox>
             </v-col>
           </v-row>
-          <v-data-table
-            :headers="headers"
-            :items="desserts"
-            :page.sync="page"
-            hide-default-footer
-            class="elevation-1"
-          ></v-data-table>
+           <v-simple-table>
+            <template>
+              <thead>
+                <tr>
+                  <th class="text-center" colspan="2">出院诊断</th>
+                  <th class="text-center" >疾病编码</th>
+                  <th class="text-center" >入院情况</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in desserts" :key="item.caseNo">
+                  <td class="text-center">
+                    <div v-if="item.diagType === '1'">
+                      <span>主要诊断:</span>
+                    </div>
+                    <div v-else>
+                      <span>其他诊断:</span>
+                    </div>
+                  </td>
+                  <td>
+                    <v-text-field class="abc" v-model="item.diagName" ></v-text-field>
+                  </td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.diagCode" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.inCondition" ></v-text-field></td>
+                </tr>
+              </tbody>
+              </template>
+          </v-simple-table>
           <v-row>
             <v-col cols="12">
               <v-text-field
@@ -547,12 +568,38 @@
               <v-text-field class="abc" v-model="medrecInfo.qcNurse" label="质控护士"></v-text-field>
             </v-col>
           </v-row>
-          <v-data-table
-            :headers="headers2"
-            :items="desserts2"
-            hide-default-footer
-            class="elevation-1"
-          ></v-data-table>
+          <v-simple-table>
+            <template>
+              <thead>
+                <tr>
+                  <th class="text-center" >手术及操作编码</th>
+                  <th class="text-center" >手术及操作日期</th>
+                  <th class="text-center" >手术级别</th>
+                  <th class="text-center" colspan="2">手术及操作名称</th>
+                  <th class="text-center" >术者</th>
+                  <th class="text-center" >Ⅰ助</th>
+                  <th class="text-center" >Ⅱ助</th>
+                  <th class="text-center" >切口愈合等级</th>
+                  <th class="text-center" >麻醉方式</th>
+                  <th class="text-center" >麻醉医师</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in desserts2" :key="item.caseNo">
+                  <td class="text-center"><v-text-field class="abc" v-model="item.operCode" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.operDate" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.operLevel" ></v-text-field></td>
+                  <td class="text-center" colspan="2"><v-text-field class="abc" v-model="item.operName" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.operDoc" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.iAssist" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.iiAssist" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.wohealLevel" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.aneWay" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.aneDoc" ></v-text-field></td>
+                </tr>
+              </tbody>
+              </template>
+          </v-simple-table>
           <v-row>
             <v-col cols="12" md="2">
               <v-text-field class="abc" v-model="medrecInfo.disWay" label="离院方式"></v-text-field>
@@ -775,33 +822,22 @@
             </v-col>
           </v-row>
         </v-card-text>
-        <v-card-actions class="justify-center">
-          <v-row no-gutters>
-            <v-col cols="8">
-              <v-btn color="warning" @click="prnClicked()">打印卫统表</v-btn>
-            </v-col>
-          </v-row>
-        </v-card-actions>
       </v-card>
     </v-form>
-    <v-divider></v-divider>
-    <v-spacer></v-spacer>
   </v-container>
 </template>
 <script>
-import Basepage from "../components/Basepage";
-
 export default {
-  components: {
-    Basepage
+  props: {
+    desserts: Object,
+    desserts2: Object,
+    medrecInfo: Object,
+    medrecCost: Object
   },
   data: () => ({
     headers: [
-      { text: "出院诊断", value: "diagName" },
       { text: "疾病编码", value: "diagCode" },
-      { text: "入院情况", value: "inCondition" },
       { text: "出院诊断", value: "diagName" },
-      { text: "疾病编码", value: "diagCode" },
       { text: "入院情况", value: "inCondition" }
     ],
     desserts: [],
@@ -860,9 +896,9 @@ export default {
       disTime: "",
       disDep: "",
       disWard: "",
-      stayDays: 0,
-      rescueTimes: 0,
-      resSucTimes: 0,
+      stayDays: "0",
+      rescueTimes: "0",
+      resSucTimes: "0",
       rescueReason: "",
       causeDeath: "",
       diagacOutpDis: "",
@@ -960,5 +996,6 @@ export default {
 .abc {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
+  font-size: 14px;
 }
 </style>
