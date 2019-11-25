@@ -51,16 +51,33 @@
           <v-text-field label="请输入住院号" outlined></v-text-field>
         </v-col>
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="selectMedrecInfo()">查 询</v-btn>
         </v-col>
       </v-row>
-      <v-data-table
-        :headers="headers"
-        :items="desserts"
-        :items-per-page="10"
-        class="elevation-1"
-        locale="zh-CN"
-      ></v-data-table>
+      <v-simple-table >
+            <template>
+              <thead>
+                <tr>
+                  <th class="text-center" >病案号</th>
+                  <th class="text-center" >姓名</th>
+                  <th class="text-center" >性别</th>
+                  <th class="text-center" >年龄</th>
+                  <th class="text-center" >身份证号</th>
+                  <th class="text-center" >入院时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in medrecInfo" :key="item.caseNo">
+                  <td class="text-center">{{ item.caseNo }}</td>
+                  <td class="text-center">{{ item.pname }}</td>
+                  <td class="text-center">{{ item.gender }}</td>
+                  <td class="text-center">{{ item.age }}</td>
+                  <td class="text-center">{{ item.idcard }}</td>
+                  <td class="text-center">{{ item.admTime }}</td>
+                </tr>
+              </tbody>
+              </template>
+          </v-simple-table>
     </v-container>
   </v-app>
 </template>
@@ -75,41 +92,46 @@ export default {
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    medrecInfo:[],
     items: [
-      {
-        text: "病案导入",
-        disabled: false,
-        href: "breadcrumbs_dashboard"
-      },
       {
         text: "患者信息查询",
         disabled: true,
         href: "breadcrumbs_link_1"
       }
-    ],
-    headers: [
-      {
-        text: "住院号",
-        align: "left",
-        sortable: false,
-        value: "pid"
-      },
-      { text: "姓名", value: "patientName" },
-      { text: "性别", value: "sex" },
-      { text: "年龄", value: "age" },
-      { text: "身份证号", value: "idCardNo" },
-      { text: "医保卡号", value: "iron" }
-    ],
-    desserts: [
-      {
-        pid: "Z00000067835",
-        patientName: "张天",
-        sex: "男",
-        age: 24,
-        idCardNo: "12345678900099",
-        iron: "1%"
-      }
     ]
-  })
+  }),
+  methods:{
+    selectMedrecInfo() {
+      let sel = this; 
+      fetch(process.env.VUE_APP_MAIN_URL + "medrecInfo", {
+        method: "get",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+        .then(function(response) {
+          if (!response.ok) {
+            sel.loginmsg = "病案查询失败" + response.err;
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          let topstatus = data.resultCode;
+          if (topstatus == "0") {
+            sel.medrecInfo = JSON.parse(data.outdata);
+            console.log(sel.medrecInfo)
+          } else {
+            //录入失败
+            sel.loginmsg = "病案查询失败";
+          }
+        })
+        .catch(function() {
+         sel.loginmsg = "病案查询失败";
+        });
+    }
+  }
 };
 </script>
