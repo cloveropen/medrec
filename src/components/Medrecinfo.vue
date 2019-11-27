@@ -273,7 +273,7 @@
                 ref="menu"
                 v-model="menu"
                 :close-on-content-click="false"
-                :return-value.sync="date"
+                :return-value.sync="medrecInfo.admTime"
                 transition="scale-transition"
                 offset-y
                 min-width="290px"
@@ -288,7 +288,7 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" no-title scrollable>
+                <v-date-picker v-model="medrecInfo.admTime" no-title scrollable>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu = false">取消</v-btn>
                   <v-btn text color="primary" @click="$refs.menu.save(date)">确定</v-btn>
@@ -312,13 +312,14 @@
                 ref="menu"
                 v-model="menu"
                 :close-on-content-click="false"
-                :return-value.sync="date"
+                :return-value.sync="medrecInfo.disTime"
                 transition="scale-transition"
                 offset-y
                 min-width="290px"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
+                    class="abc"
                     v-model="medrecInfo.disTime"
                     label="出院时间"
                     prepend-icon="event"
@@ -326,7 +327,7 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" no-title scrollable>
+                <v-date-picker v-model="medrecInfo.disTime" no-title scrollable>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu = false">取消</v-btn>
                   <v-btn text color="primary" @click="$refs.menu.save(date)">确定</v-btn>
