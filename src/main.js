@@ -3,17 +3,18 @@ import App from "./App.vue";
 import { router } from "./router/router";
 import store from "./store/store";
 import vuetify from "./plugins/vuetify";
-import VueHtmlToPaper from 'vue-html-to-paper';
+import VueHtmlToPaper from "vue-html-to-paper";
+// 引入样式
+import "vue-easytable/libs/themes-base/index.css";
+// 导入 table 和 分页组件
+import { VTable, VPagination } from "vue-easytable";
 
 const options = {
-  name: '_blank',
-  specs: [
-    'fullscreen=yes',
-    'scrollbars=yes'
-  ],
+  name: "blank",
+  specs: ["fullscreen=yes", "scrollbars=yes"],
   styles: [
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
+    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+    "https://unpkg.com/kidlat-css/css/kidlat.css"
   ]
 };
 
@@ -27,3 +28,6 @@ new Vue({
 }).$mount("#app");
 
 Vue.use(VueHtmlToPaper, options);
+// 注册到全局
+Vue.component(VTable.name, VTable);
+Vue.component(VPagination.name, VPagination);

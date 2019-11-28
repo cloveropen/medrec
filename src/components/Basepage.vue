@@ -134,9 +134,9 @@ export default {
         model: false,
         id: "receive",
         children: [
-          { text: "病房日报", id: "lend_paper" },
-          { text: "门诊日报", id: "back_paper" },
-          { text: "数据审核", id: "lend_net" },
+          { text: "病房日报", id: "ward_daily" },
+          { text: "门诊日报", id: "outp_daily" },
+          { text: "医技日报", id: "medi_daily" },
           { text: "数据上报", id: "weixin_reg" }
         ]
       },
@@ -175,14 +175,14 @@ export default {
         case "data_upload":
           this.$router.push({ path: "/data_upload" });
           break;
-        case "back_paper":
-          this.$router.push({ path: "/back_paper" });
+        case "ward_daily":
+          this.$router.push({ path: "/ward_daily" });
           break;
-        case "lend_net":
-          this.$router.push({ path: "/lend_net" });
+        case "outp_daily":
+          this.$router.push({ path: "/outp_daily" });
           break;
-        case "weixin_reg":
-          this.$router.push({ path: "/weixin_reg" });
+        case "medi_daily":
+          this.$router.push({ path: "/medi_daily" });
           break;
         case "copy_reg":
           this.$router.push({ path: "/copy_reg" });

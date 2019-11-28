@@ -69,6 +69,24 @@ export const router = new Router({
       name: "data_audit",
       component: () =>
         import(/* webpackChunkName: "query" */ "../views/DataAudit.vue")
+    },
+    {
+      path: "/ward_daily",
+      name: "ward_daily",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/WardDaily.vue")
+    },
+    {
+      path: "/outp_daily",
+      name: "outp_daily",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/OutpDaily.vue")
+    },
+    {
+      path: "/medi_daily",
+      name: "medi_daily",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/MediDaily.vue")
     }
   ]
 });
