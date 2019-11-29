@@ -87,13 +87,32 @@
                 </tr>
           </thead>
           <tbody>
-            <tr v-for="item in medrecInfos" :key="item.caseNo" @dblclick="openMedrec(item.caseNo)">
-              <td class="text-center">{{ item.caseNo }}</td>
-              <td class="text-center">{{ item.pname }}</td>
-              <td class="text-center">{{ item.gender }}</td>
-              <td class="text-center">{{ item.age }}</td>
-              <td class="text-center">{{ item.idcard }}</td>
-              <td class="text-center">{{ item.admTime }}</td>
+            <tr v-for="item in outpDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{ item.recordDate }}</td>
+              <td class="text-center">{{ item.dept }}</td>
+              <td class="text-center">{{ item.workDays }}</td>
+              <td class="text-center">{{ item.firstVisitNum }}</td>
+              <td class="text-center">{{ item.subVisitNum }}</td>
+              <td class="text-center">{{ item.diagnosticNum }}</td>
+              <td class="text-center">{{ item.healthExam }}</td>
+              <td class="text-center">{{ item.observeStay }}</td>
+              <td class="text-center">{{ item.rescueNum }}</td>
+              <td class="text-center">{{ item.rescueSuccessNum }}</td>
+              <td class="text-center">{{ item.criticalRescueNum }}</td>
+              <td class="text-center">{{ item.emerRoomDeathNum }}</td>
+              <td class="text-center">{{ item.obserRoomDeathNum }}</td>
+              <td class="text-center">{{ item.registeredNum }}</td>
+              <td class="text-center">{{ item.freeRegistered }}</td>
+              <td class="text-center">{{ item.ordinaryNum }}</td>
+              <td class="text-center">{{ item.emergencyNum }}</td>
+              <td class="text-center">{{ item.expertNum }}</td>
+              <td class="text-center">{{ item.basicInsurance }}</td>
+              <td class="text-center">{{ item.commercialInsurance }}</td>
+              <td class="text-center">{{ item.other }}</td>
+              <td class="text-center">{{ item.outCall }}</td>
+              <td class="text-center">{{ item.familySickbed }}</td>
+              <td class="text-center">{{ item.district }}</td>
+              <td class="text-center">{{ item.inpatientNum }}</td>
             </tr>
           </tbody>
         </template>
@@ -101,8 +120,8 @@
       <div :style="style">
         <v-btn small class="success" @click="goback()">返回上一页</v-btn>
         <Medrecinfo
-          v-bind:desserts="p_desserts"
-          v-bind:desserts2="p_desserts2"
+          v-bind:desserts="pDesserts"
+          v-bind:desserts2="pDesserts2"
           v-bind:medrecInfo="medrecInfo"
           v-bind:medrecCost="medrecCost"
         />
@@ -124,8 +143,8 @@ export default {
     menu1: false,
     menu2: false,
     medrecInfos: [],
-    p_desserts: [],
-    p_desserts2: [],
+    pDesserts: [],
+    pDesserts2: [],
     medrecInfo: [],
     medrecCost: [],
     caseNo: "",
@@ -186,9 +205,9 @@ export default {
           sel.loginmsg = "病案查询失败";
         });
     },
-    openMedrec(case_no) {
+    openMedrec(caseNo) {
       let sel = this;
-      fetch(process.env.VUE_APP_MAIN_URL + "medrec/" + case_no, {
+      fetch(process.env.VUE_APP_MAIN_URL + "medrec/" + caseNo, {
         method: "get",
         mode: "cors",
         headers: {
@@ -211,8 +230,8 @@ export default {
             sel.style = "";
             sel.medrecInfo = JSON.parse(data.outdata).medrecInfo;
             sel.medrecCost = JSON.parse(data.outdata).medrecCost;
-            sel.p_desserts = JSON.parse(data.outdata).medrecDiag;
-            sel.p_desserts2 = JSON.parse(data.outdata).medrecOpers;
+            sel.pDesserts = JSON.parse(data.outdata).medrecDiag;
+            sel.pDesserts2 = JSON.parse(data.outdata).medrecOpers;
           } else {
             //查询失败
             window.alert("查询失败!\n");

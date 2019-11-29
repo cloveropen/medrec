@@ -72,13 +72,17 @@
                 </tr>
           </thead>
           <tbody>
-            <tr v-for="item in medrecInfos" :key="item.caseNo" @dblclick="openMedrec(item.caseNo)">
-              <td class="text-center">{{ item.caseNo }}</td>
-              <td class="text-center">{{ item.pname }}</td>
-              <td class="text-center">{{ item.gender }}</td>
-              <td class="text-center">{{ item.age }}</td>
-              <td class="text-center">{{ item.idcard }}</td>
-              <td class="text-center">{{ item.admTime }}</td>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{ item.recordDate }}</td>
+              <td class="text-center">{{ item.mediDroject }}</td>
+              <td class="text-center">{{ item.mediDept }}</td>
+              <td class="text-center">{{ item.applyDept }}</td>
+              <td class="text-center">{{ item.applyNum }}</td>
+              <td class="text-center">{{ item.chargeStandard }}</td>
+              <td class="text-center">{{ item.actualCost }}</td>
+              <td class="text-center">{{ item.itemNum }}</td>
+              <td class="text-center">{{ item.positiveNum }}</td>
+              <td class="text-center">{{ item.remarks }}</td>
             </tr>
           </tbody>
         </template>

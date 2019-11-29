@@ -97,13 +97,31 @@
                 </tr>
           </thead>
           <tbody>
-            <tr v-for="item in medrecInfos" :key="item.caseNo" @dblclick="openMedrec(item.caseNo)">
-              <td class="text-center">{{ item.caseNo }}</td>
-              <td class="text-center">{{ item.pname }}</td>
-              <td class="text-center">{{ item.gender }}</td>
-              <td class="text-center">{{ item.age }}</td>
-              <td class="text-center">{{ item.idcard }}</td>
-              <td class="text-center">{{ item.admTime }}</td>
+            <tr v-for="item in wardDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{ item.ward }}</td>
+              <td class="text-center">{{ item.recordDate }}</td>
+              <td class="text-center">{{ item.openBedsNum }}</td>
+              <td class="text-center">{{ item.originalNum }}</td>
+              <td class="text-center">{{ item.admissionNum }}</td>
+              <td class="text-center">{{ item.otherDeptShift }}</td>
+              <td class="text-center">{{ item.outNum }}</td>
+              <td class="text-center">{{ item.cure }}</td>
+              <td class="text-center">{{ item.becomeBetter }}</td>
+              <td class="text-center">{{ item.healed }}</td>
+              <td class="text-center">{{ item.death }}</td>
+              <td class="text-center">{{ item.terminal }}</td>
+              <td class="text-center">{{ item.invalid }}</td>
+              <td class="text-center">{{ item.untreated }}</td>
+              <td class="text-center">{{ item.subtotal }}</td>
+              <td class="text-center">{{ item.noDiseaseNum }}</td>
+              <td class="text-center">{{ item.normalLabor }}</td>
+              <td class="text-center">{{ item.nulliparousDischarge }}</td>
+              <td class="text-center">{{ item.familyPlanning }}</td>
+              <td class="text-center">{{ item.otherOccupyingBed }}</td>
+              <td class="text-center">{{ item.patientOccupyingBed }}</td>
+              <td class="text-center">{{ item.currentNum }}</td>
+              <td class="text-center">{{ item.shiftDept }}</td>
+              <td class="text-center">{{ item.accompanyNum }}</td>
             </tr>
           </tbody>
         </template>
