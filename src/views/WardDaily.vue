@@ -61,7 +61,7 @@
               <tr>
                     <th class="text-center" rowspan="4">病房</th>
                     <th class="text-center" rowspan="4">日期</th>
-                    <th class="text-center" rowspan="4">实际开放床</th>
+                    <th class="text-center" rowspan="4">实际开放床数</th>
                     <th class="text-center" rowspan="4">原有人数</th>
                     <th class="text-center" rowspan="4">入院人数</th>
                     <th class="text-center" rowspan="4">他科转入</th>
