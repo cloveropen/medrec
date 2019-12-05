@@ -4,7 +4,7 @@
     <v-container>
       <div>
         <v-toolbar>
-          <v-toolbar-title>病案查询</v-toolbar-title>
+          <v-toolbar-title>医技日报</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -47,42 +47,45 @@
             <v-date-picker v-model="dateEnd" height="100%" locale="zh-cn" @input="menu2 = false"></v-date-picker>
           </v-menu>
         </v-col>
-        <v-col cols="8" sm="6" md="3">
+        <!-- <v-col cols="8" sm="6" md="3">
           <v-text-field label="请输入住院号" outlined v-model="caseNo"></v-text-field>
+        </v-col> -->
+        <v-col cols="8" sm="6" md="2">
+          <v-btn class="ma-2" outlined color="indigo" @click="selectMediDaily()">查 询</v-btn>
         </v-col>
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="selectMedrecInfo()">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="saveMediDaily()">保 存</v-btn>
         </v-col>
       </v-row>
-      <v-simple-table>
+      <v-simple-table class="mytable">
         <template>
           <thead>
             <tr>
               <tr>
-                    <th class="headerTable" >日期</th>
-                    <th >医技项目</th>
-                    <th >医技科室</th>
-                    <th >申请科室</th>
-                    <th>申请人次</th>
-                    <th>收费标准</th>
-                    <th>实际费用</th>
-                    <th>套(件)数</th>
-                    <th>阳性数</th>
-                    <th>备注</th>
+                     <th class="text-center">日期</th>
+                     <th class="text-center">医技项目</th>
+                     <th class="text-center">医技科室</th>
+                     <th class="text-center">申请科室</th>
+                     <th class="text-center">申请人次</th>
+                     <th class="text-center">收费标准</th>
+                     <th class="text-center">实际费用</th>
+                     <th class="text-center">套(件)数</th>
+                     <th class="text-center">阳性数</th>
+                     <th class="text-center">备注</th>
                 </tr>
           </thead>
           <tbody>
             <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
-              <td class="text-center">{{ item.recordDate }}</td>
-              <td class="text-center">{{ item.mediDroject }}</td>
-              <td class="text-center">{{ item.mediDept }}</td>
-              <td class="text-center">{{ item.applyDept }}</td>
-              <td class="text-center">{{ item.applyNum }}</td>
-              <td class="text-center">{{ item.chargeStandard }}</td>
-              <td class="text-center">{{ item.actualCost }}</td>
-              <td class="text-center">{{ item.itemNum }}</td>
-              <td class="text-center">{{ item.positiveNum }}</td>
-              <td class="text-center">{{ item.remarks }}</td>
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
             </tr>
           </tbody>
         </template>
@@ -112,11 +115,7 @@ export default {
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
-    medrecInfos: [],
-    p_desserts: [],
-    p_desserts2: [],
-    medrecInfo: [],
-    medrecCost: [],
+    mediDaily: [],
     caseNo: "",
     style: "display:none;",
     style1: "",
@@ -144,10 +143,10 @@ export default {
     sel.dateBegin = year + "-" + month + "-" + day;
   },
   methods: {
-    selectMedrecInfo() {
+    selectMediDaily() {
       let sel = this;
-      let tin = sel.dateBegin + "|" + sel.dateEnd + "|" + sel.caseNo;
-      fetch(process.env.VUE_APP_MAIN_URL + "medrecInfo/" + tin, {
+      let tin = sel.dateBegin + "|" + sel.dateEnd ;
+      fetch(process.env.VUE_APP_MAIN_URL + "getMediDaily/" + tin, {
         method: "get",
         mode: "cors",
         headers: {
@@ -157,22 +156,22 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.loginmsg = "病案查询失败" + response.err;
+            sel.loginmsg = "医技日报失败" + response.err;
           }
           return response.json();
         })
         .then(function(data) {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-            sel.medrecInfos = JSON.parse(data.outdata);
+            sel.mediDaily = JSON.parse(data.outdata);
             //console.log(sel.medrecInfo);
           } else {
             //录入失败
-            sel.loginmsg = "病案查询失败";
+            sel.loginmsg = "医技日报失败";
           }
         })
         .catch(function() {
-          sel.loginmsg = "病案查询失败";
+          sel.loginmsg = "医技日报失败";
         });
     },
     openMedrec(case_no) {
@@ -220,3 +219,11 @@ export default {
   }
 };
 </script>
+<style >
+.mytable table tr th,td {
+    border: 1px solid rgb(83, 77, 72);
+    padding: 0 0 0 0 ;
+    margin: 0 0 0 0;
+    
+}
+</style>

@@ -47,11 +47,14 @@
             <v-date-picker v-model="dateEnd" height="100%" locale="zh-cn" @input="menu2 = false"></v-date-picker>
           </v-menu>
         </v-col>
-        <v-col cols="8" sm="6" md="3">
+        <!-- <v-col cols="8" sm="6" md="3">
           <v-text-field label="请输入住院号" outlined v-model="caseNo"></v-text-field>
-        </v-col>
+        </v-col> -->
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="selectMedrecInfo()">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="selectWardDaily()">查 询</v-btn>
+        </v-col>
+         <v-col cols="8" sm="6" md="2">
+          <v-btn class="ma-2" outlined color="indigo" @click="saveWardDaily()">保 存</v-btn>
         </v-col>
       </v-row>
       <v-simple-table dense  class="mytable">
@@ -97,31 +100,31 @@
                 </tr>
           </thead>
           <tbody>
-            <tr v-for="item in wardDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
-              <td class="text-center">{{ item.ward }}</td>
-              <td class="text-center">{{ item.recordDate }}</td>
-              <td class="text-center">{{ item.openBedsNum }}</td>
-              <td class="text-center">{{ item.originalNum }}</td>
-              <td class="text-center">{{ item.admissionNum }}</td>
-              <td class="text-center">{{ item.otherDeptShift }}</td>
-              <td class="text-center">{{ item.outNum }}</td>
-              <td class="text-center">{{ item.cure }}</td>
-              <td class="text-center">{{ item.becomeBetter }}</td>
-              <td class="text-center">{{ item.healed }}</td>
-              <td class="text-center">{{ item.death }}</td>
-              <td class="text-center">{{ item.terminal }}</td>
-              <td class="text-center">{{ item.invalid }}</td>
-              <td class="text-center">{{ item.untreated }}</td>
-              <td class="text-center">{{ item.subtotal }}</td>
-              <td class="text-center">{{ item.noDiseaseNum }}</td>
-              <td class="text-center">{{ item.normalLabor }}</td>
-              <td class="text-center">{{ item.nulliparousDischarge }}</td>
-              <td class="text-center">{{ item.familyPlanning }}</td>
-              <td class="text-center">{{ item.otherOccupyingBed }}</td>
-              <td class="text-center">{{ item.patientOccupyingBed }}</td>
-              <td class="text-center">{{ item.currentNum }}</td>
-              <td class="text-center">{{ item.shiftDept }}</td>
-              <td class="text-center">{{ item.accompanyNum }}</td>
+            <tr v-for="item in wardDaily" :key="item.seq">
+              <td class="text-center">{{item.ward}}</td>
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.openBedsNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.originalNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.admissionNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.otherDeptShift" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.outNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.cure" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.becomeBetter" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.healed" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.death" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.terminal" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.invalid" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.untreated" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.subtotal" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.noDiseaseNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.normalLabor" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.nulliparousDischarge" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.familyPlanning" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.otherOccupyingBed" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.patientOccupyingBed" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.currentNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.shiftDept" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.accompanyNum" ></v-text-field></td>
             </tr>
           </tbody>
         </template>
@@ -140,22 +143,16 @@
 </template>
 <script>
 import Basepage from "../components/Basepage";
-import Medrecinfo from "../components/Medrecinfo";
 export default {
   components: {
-    Basepage,
-    Medrecinfo
+    Basepage
   },
   data: () => ({
     dateBegin: new Date().toISOString().substr(0, 10),
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
-    medrecInfos: [],
-    p_desserts: [],
-    p_desserts2: [],
-    medrecInfo: [],
-    medrecCost: [],
+    wardDaily: [],
     caseNo: "",
     style: "display:none;",
     style1: "",
@@ -183,10 +180,10 @@ export default {
     sel.dateBegin = year + "-" + month + "-" + day;
   },
   methods: {
-    selectMedrecInfo() {
+    selectWardDaily() {
       let sel = this;
-      let tin = sel.dateBegin + "|" + sel.dateEnd + "|" + sel.caseNo;
-      fetch(process.env.VUE_APP_MAIN_URL + "medrecInfo/" + tin, {
+      let tin = sel.dateBegin + "|" + sel.dateEnd;
+      fetch(process.env.VUE_APP_MAIN_URL + "getWardDaily/" + tin, {
         method: "get",
         mode: "cors",
         headers: {
@@ -203,7 +200,7 @@ export default {
         .then(function(data) {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-            sel.medrecInfos = JSON.parse(data.outdata);
+            sel.wardDaily = JSON.parse(data.outdata);
             //console.log(sel.medrecInfo);
           } else {
             //录入失败
@@ -262,8 +259,8 @@ export default {
 <style >
 .mytable table tr th,td {
     border: 1px solid rgb(83, 77, 72);
-    padding: 0;
-    margin: 0;
+    padding: 0 0 0 0 ;
+    margin: 0 0 0 0;
     
 }
 </style>
