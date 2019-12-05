@@ -1,12 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app>
-      <v-toolbar app style="background-color:rgb(34,184,253);">
-        <v-toolbar-title class="ml-0 pl-4">
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <span class="hidden-sm-and-down">病案统计</span>
-        </v-toolbar-title>
-      </v-toolbar>
+    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app style="background-color:rgb(188,245,191);">
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -31,7 +25,7 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
-            <v-list-item v-for="(child, i) in item.children" :key="i" @click="clickMenu(child.id)">
+            <v-list-item style="background-color:rgb(255,255,255);" v-for="(child, i) in item.children" :key="i" @click="clickMenu(child.id)">
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -52,10 +46,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
-      
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app style="background-color:rgb(76,175,80);">
+        <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <span class="hidden-sm-and-down">病案统计</span>
+        </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip right>
+      <v-tooltip right >
         <template v-slot:activator="{ on }">
           <v-btn icon to="/about" v-on="on">
             <v-icon>thumb_up_alt</v-icon>
@@ -85,12 +82,12 @@
       </template>
       <span>返回主页</span>
     </v-tooltip>
-    <!-- <v-footer absolute class="font-weight-medium" >
+    <v-footer absolute class="font-weight-medium" >
       <v-col class="text-center" cols="12" >
         {{ new Date().getFullYear() }} —
         <strong>cloveropen</strong>
       </v-col>
-    </v-footer>-->
+    </v-footer>
   </div>
 </template>
 
@@ -136,8 +133,7 @@ export default {
         children: [
           { text: "病房日报", id: "ward_daily" },
           { text: "门诊日报", id: "outp_daily" },
-          { text: "医技日报", id: "medi_daily" },
-          { text: "数据上报", id: "weixin_reg" }
+          { text: "医技日报", id: "medi_daily" }
         ]
       },
       {

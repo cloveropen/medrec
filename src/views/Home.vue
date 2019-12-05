@@ -1,7 +1,7 @@
 <template>
   <v-app id="medrec.cloveropen.com">
     <Basepage />
-    <v-container fluid fill-height>
+    <v-container fluid >
       <div class="text--primary" >
         <v-layout row wrap>
           <v-flex d-flex>
@@ -11,6 +11,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-6 transition-swing"
+                  style="width:600px"
                 >
                   <b>病案接口</b>
                   <v-layout row wrap>
@@ -63,6 +64,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
                 >
                   <b>数字化病案</b>
                   <v-layout row wrap>
@@ -113,6 +115,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
                 >
                   <b>数字化病案跟踪</b>
                   <v-layout row wrap>
@@ -163,6 +166,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
                 >
                   <b>病案统计报表</b>
                   <v-layout row wrap>
@@ -213,6 +217,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
                 >
                   <b>病案服务</b>
                   <v-layout row wrap>
@@ -264,6 +269,7 @@
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
                   class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
                 >
                   <b>词典设置</b>
                   <v-layout row wrap>
