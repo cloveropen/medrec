@@ -87,6 +87,12 @@ export const router = new Router({
       name: "medi_daily",
       component: () =>
         import(/* webpackChunkName: "query" */ "../views/MediDaily.vue")
+    },
+    {
+      path: "/data_upload",
+      name: "data_upload",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/DataUpload.vue")
     }
   ]
 });
