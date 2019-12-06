@@ -1,10 +1,10 @@
 <template>
   <v-app id="medrec.cloveropen.com">
     <Basepage />
-    <v-container>
+    <v-container style="background-color:rgb(255,255,255);">
       <div>
         <v-toolbar>
-          <v-toolbar-title>病案查询</v-toolbar-title>
+          <v-toolbar-title>门诊日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -47,72 +47,79 @@
             <v-date-picker v-model="dateEnd" height="100%" locale="zh-cn" @input="menu2 = false"></v-date-picker>
           </v-menu>
         </v-col>
-        <v-col cols="8" sm="6" md="3">
+        <!-- <v-col cols="8" sm="6" md="3">
           <v-text-field label="请输入住院号" outlined v-model="caseNo"></v-text-field>
-        </v-col>
+        </v-col> -->
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="selectMedrecInfo()">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="selectOutpDaily()">查 询</v-btn>
         </v-col>
+
+         <v-col cols="8" sm="6" md="2">
+          <v-btn class="ma-2" outlined color="indigo" @click="saveOutpDaily()">保 存</v-btn>
+        </v-col>
+         <!-- <v-col cols="8" sm="6" md="2">
+          <v-btn class="ma-2" outlined color="indigo" @click="exportExcel()">测试导出excel</v-btn>
+        </v-col> -->
       </v-row>
-      <v-simple-table>
+      <v-simple-table class="mytable">
         <template>
           <thead>
             <tr>
               <tr>
-                    <th class="headerTable" >日期</th>
-                    <th >科室</th>
-                    <th >工作日数</th>
-                    <th >初诊数</th>
-                    <th>复诊数</th>
-                    <th>诊查数</th>
-                    <th>健康检查</th>
-                    <th>留诊观察</th>
-                    <th>抢救人数</th>
-                    <th>抢救成功人数</th>
-                    <th >危重抢救数</th>
-                    <th >急诊室死亡人数</th>
-                    <th >观察室死亡人数</th>
-                    <th >挂号数量</th>
-                    <th>免挂</th>
-                    <th>普通号</th>
-                    <th>急诊号</th>
-                    <th>专家号</th>
-                    <th>基保</th>
-                    <th>商保</th>
-                    <th >其他</th>
-                    <th >出诊</th>
-                    <th >赴家庭病床</th>
-                    <th >地段</th>
-                    <th>住院诊疗人数</th>
+                    <th class="text-center">日期</th>
+                    <th class="text-center">科室</th>
+                    <th class="text-center">工作日数</th>
+                    <th class="text-center">初诊数</th>
+                    <th class="text-center">复诊数</th>
+                    <th class="text-center">诊查数</th>
+                    <th class="text-center">健康检查</th>
+                    <th class="text-center">留诊观察</th>
+                    <th class="text-center">抢救人数</th>
+                    <th class="text-center">抢救成功人数</th>
+                    <th class="text-center">危重抢救数</th>
+                    <th class="text-center">急诊室死亡人数</th>
+                    <th class="text-center">观察室死亡人数</th>
+                    <th class="text-center">挂号数量</th>
+                    <th class="text-center">免挂</th>
+                    <th class="text-center">普通号</th>
+                    <th class="text-center">急诊号</th>
+                    <th class="text-center">专家号</th>
+                    <th class="text-center">基保</th>
+                    <th class="text-center">商保</th>
+                    <th class="text-center">其他</th>
+                    <th class="text-center">出诊</th>
+                    <th class="text-center">赴家庭病床</th>
+                    <th class="text-center">地段</th>
+                    <th class="text-center">住院诊疗人数</th>
                 </tr>
           </thead>
           <tbody>
             <tr v-for="item in outpDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
-              <td class="text-center">{{ item.recordDate }}</td>
-              <td class="text-center">{{ item.dept }}</td>
-              <td class="text-center">{{ item.workDays }}</td>
-              <td class="text-center">{{ item.firstVisitNum }}</td>
-              <td class="text-center">{{ item.subVisitNum }}</td>
-              <td class="text-center">{{ item.diagnosticNum }}</td>
-              <td class="text-center">{{ item.healthExam }}</td>
-              <td class="text-center">{{ item.observeStay }}</td>
-              <td class="text-center">{{ item.rescueNum }}</td>
-              <td class="text-center">{{ item.rescueSuccessNum }}</td>
-              <td class="text-center">{{ item.criticalRescueNum }}</td>
-              <td class="text-center">{{ item.emerRoomDeathNum }}</td>
-              <td class="text-center">{{ item.obserRoomDeathNum }}</td>
-              <td class="text-center">{{ item.registeredNum }}</td>
-              <td class="text-center">{{ item.freeRegistered }}</td>
-              <td class="text-center">{{ item.ordinaryNum }}</td>
-              <td class="text-center">{{ item.emergencyNum }}</td>
-              <td class="text-center">{{ item.expertNum }}</td>
-              <td class="text-center">{{ item.basicInsurance }}</td>
-              <td class="text-center">{{ item.commercialInsurance }}</td>
-              <td class="text-center">{{ item.other }}</td>
-              <td class="text-center">{{ item.outCall }}</td>
-              <td class="text-center">{{ item.familySickbed }}</td>
-              <td class="text-center">{{ item.district }}</td>
-              <td class="text-center">{{ item.inpatientNum }}</td>
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.dept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.workDays" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.firstVisitNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.subVisitNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.diagnosticNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.healthExam" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.observeStay" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.rescueNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.rescueSuccessNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.criticalRescueNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.emerRoomDeathNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.obserRoomDeathNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.registeredNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.freeRegistered" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.ordinaryNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.emergencyNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.expertNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.basicInsurance" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.commercialInsurance" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.other" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.outCall" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.familySickbed" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.district" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.inpatientNum" ></v-text-field></td>
             </tr>
           </tbody>
         </template>
@@ -142,21 +149,10 @@ export default {
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
-    medrecInfos: [],
-    pDesserts: [],
-    pDesserts2: [],
-    medrecInfo: [],
-    medrecCost: [],
+    outpDaily: [],
     caseNo: "",
     style: "display:none;",
     style1: "",
-    items: [
-      {
-        text: "患者信息查询",
-        disabled: true,
-        href: "breadcrumbs_link_1"
-      }
-    ]
   }),
   mounted: function() {
     //获取开始时间 取当前月的前一个月的一号
@@ -174,10 +170,10 @@ export default {
     sel.dateBegin = year + "-" + month + "-" + day;
   },
   methods: {
-    selectMedrecInfo() {
+    selectOutpDaily() {
       let sel = this;
-      let tin = sel.dateBegin + "|" + sel.dateEnd + "|" + sel.caseNo;
-      fetch(process.env.VUE_APP_MAIN_URL + "medrecInfo/" + tin, {
+      let tin = sel.dateBegin + "|" + sel.dateEnd ;
+      fetch(process.env.VUE_APP_MAIN_URL + "getOutpDaily/" + tin, {
         method: "get",
         mode: "cors",
         headers: {
@@ -187,22 +183,22 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.loginmsg = "病案查询失败" + response.err;
+            sel.loginmsg = "门诊日报失败" + response.err;
           }
           return response.json();
         })
         .then(function(data) {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-            sel.medrecInfos = JSON.parse(data.outdata);
+            sel.outpDaily = JSON.parse(data.outdata);
             //console.log(sel.medrecInfo);
           } else {
             //录入失败
-            sel.loginmsg = "病案查询失败";
+            sel.loginmsg = "门诊日报失败";
           }
         })
         .catch(function() {
-          sel.loginmsg = "病案查询失败";
+          sel.loginmsg = "门诊日报失败";
         });
     },
     openMedrec(caseNo) {
@@ -246,7 +242,54 @@ export default {
       let sel = this;
       sel.style = "display:none;";
       sel.style1 = "";
+    },
+    exportExcel() {
+      fetch(process.env.VUE_APP_MAIN_URL + "excel", {
+        method: "get",
+        mode: "cors", 
+        headers: {
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+          "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
+        }
+      })
+        .then(function(response) {
+          if (!response.ok) {
+            window.alert("查询失败error");
+            sel.loginmsg = "查询失败" + response.err;
+          }
+          return response.json();
+        })
+        .then(function(data) {
+      console.log(data)
+      // const content = data.data
+      // const blob = new Blob([content])
+      // const fileName = `${new Date().getTime()}_导出结果.xlsx`
+      // if ('download' in document.createElement('a')) {
+      //   const elink = document.createElement('a')
+      //   elink.download = fileName
+      //   elink.style.display = 'none'
+      //   elink.href = URL.createObjectURL(blob)
+      //   document.body.appendChild(elink)
+      //   elink.click()
+      //   URL.revokeObjectURL(elink.href)
+      //   document.body.removeChild(elink)
+      // } else {
+      //   navigator.msSaveBlob(blob, fileName)
+      // }
+  
+        })
+        .catch(function(err) {
+          window.alert("error=" + err);
+        });
     }
   }
 };
 </script>
+<style >
+.mytable table tr th,td {
+    border: 1px solid rgb(76,175,80);
+    padding: 0 0 0 0 ;
+    margin: 0 0 0 0;
+    
+}
+</style>

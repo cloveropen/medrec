@@ -1,7 +1,7 @@
 <template>
   <v-app id="medrec.cloveropen.com">
     <Basepage />
-    <v-container>
+    <v-container fluid>
       <div>
         <v-toolbar>
           <v-toolbar-title>病案录入</v-toolbar-title>
@@ -19,16 +19,15 @@
       </v-row>
       <v-alert dense text class="text-center" type="success" v-model="alertSuccess" >录入成功</v-alert>
       <v-alert dense text class="text-center" type="error" v-model="alertError" >{{errorContent}}</v-alert>
-    </v-container>
-    <Medrecinfo
-      v-bind:desserts="p_desserts"
-      v-bind:desserts2="p_desserts2"
-      v-bind:medrecInfo="medrecInfo"
-      v-bind:medrecCost="medrecCost"
-    />
+      <Medrecinfo
+          v-bind:desserts="p_desserts"
+          v-bind:desserts2="p_desserts2"
+          v-bind:medrecInfo="medrecInfo"
+          v-bind:medrecCost="medrecCost"
+        />
     <v-btn small class="success" @click="confirmMedrec()">确认导入</v-btn>
-    <br />
-  </v-app>
+    </v-container>
+   </v-app> 
 </template>
 <script>
 import Basepage from "../components/Basepage";
