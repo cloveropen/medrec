@@ -251,9 +251,12 @@ export default {
 </script>
 <style >
 .mytable table tr th,td {
-    border: 1px solid rgb(76,175,80);
+    border: 1px solid rgba(113, 219, 191, 0.911);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     
+}
+.mytable th{
+    background-color: #3AB796;    
 }
 </style>

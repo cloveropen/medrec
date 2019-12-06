@@ -242,54 +242,18 @@ export default {
       let sel = this;
       sel.style = "display:none;";
       sel.style1 = "";
-    },
-    exportExcel() {
-      fetch(process.env.VUE_APP_MAIN_URL + "excel", {
-        method: "get",
-        mode: "cors", 
-        headers: {
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-          "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
-        }
-      })
-        .then(function(response) {
-          if (!response.ok) {
-            window.alert("查询失败error");
-            sel.loginmsg = "查询失败" + response.err;
-          }
-          return response.json();
-        })
-        .then(function(data) {
-      console.log(data)
-      // const content = data.data
-      // const blob = new Blob([content])
-      // const fileName = `${new Date().getTime()}_导出结果.xlsx`
-      // if ('download' in document.createElement('a')) {
-      //   const elink = document.createElement('a')
-      //   elink.download = fileName
-      //   elink.style.display = 'none'
-      //   elink.href = URL.createObjectURL(blob)
-      //   document.body.appendChild(elink)
-      //   elink.click()
-      //   URL.revokeObjectURL(elink.href)
-      //   document.body.removeChild(elink)
-      // } else {
-      //   navigator.msSaveBlob(blob, fileName)
-      // }
-  
-        })
-        .catch(function(err) {
-          window.alert("error=" + err);
-        });
     }
   }
 };
 </script>
 <style >
 .mytable table tr th,td {
-    border: 1px solid rgb(76,175,80);
+    border: 1px solid rgba(113, 219, 191, 0.911);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     
+}
+.mytable th{
+    background-color: #3AB796;    
 }
 </style>

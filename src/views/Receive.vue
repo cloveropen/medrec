@@ -9,23 +9,23 @@
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
       </div>
-      <v-row class="abc">
-        <v-col cols="8" sm="6" md="3">
-          <v-text-field label="病案号" outlined v-model="case_no"></v-text-field>
+      <v-row >
+        <v-col cols="8" sm="6" md="3" >
+          <v-text-field class="spacing-playground pa-0 ma-0" label="病案号" outlined v-model="case_no"></v-text-field>
         </v-col>
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="queryMedrec(case_no)">查 询</v-btn>
+          <v-btn class="spacing-playground pa-1 ma-2" outlined color="indigo" @click="queryMedrec(case_no)">查 询</v-btn>
         </v-col>
       </v-row>
       <v-alert dense text class="text-center" type="success" v-model="alertSuccess" >录入成功</v-alert>
       <v-alert dense text class="text-center" type="error" v-model="alertError" >{{errorContent}}</v-alert>
-      <Medrecinfo
+      <Medrecinfo class="spacing-playground pa-0 ma-0"
           v-bind:desserts="p_desserts"
           v-bind:desserts2="p_desserts2"
           v-bind:medrecInfo="medrecInfo"
           v-bind:medrecCost="medrecCost"
         />
-    <v-btn small class="success" @click="confirmMedrec()">确认导入</v-btn>
+    <v-btn block class="spacing-playground mt-2 success" @click="confirmMedrec()">确认导入</v-btn>
     </v-container>
    </v-app> 
 </template>

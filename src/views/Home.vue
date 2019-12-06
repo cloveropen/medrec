@@ -18,7 +18,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark @click="clickItem('query')">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('query')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -30,7 +30,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -42,7 +42,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark @click="clickItem('unlock')">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('unlock')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -71,7 +71,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -83,7 +83,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -95,7 +95,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -122,7 +122,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -134,7 +134,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -146,7 +146,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -173,7 +173,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark @click="clickItem('medrec_info')">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_info')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -185,7 +185,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -197,7 +197,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -224,7 +224,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -236,7 +236,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -248,7 +248,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -276,7 +276,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark @click="clickItem('dict_icd10')">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('dict_icd10')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -288,7 +288,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
@@ -300,7 +300,7 @@
                     <v-flex d-flex
                       >&emsp;
                       <div class="my-2" align="center">
-                        <v-btn color="success" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark>
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>

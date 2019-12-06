@@ -2,8 +2,8 @@
   <v-app id="medrec.cloveropen.com">
     <Basepage />
     <v-container>
-      <div>
-        <v-toolbar>
+      <div >
+        <v-toolbar class="elevation-0">
           <v-toolbar-title>医技日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -220,9 +220,12 @@ export default {
 </script>
 <style >
 .mytable table tr th,td {
-    border: 1px solid rgb(76,175,80);
+    border: 1px solid rgba(113, 219, 191, 0.911);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     
+}
+.mytable th{
+    background-color: #3AB796;    
 }
 </style>

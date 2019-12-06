@@ -54,14 +54,14 @@
           <v-btn class="ma-2" outlined color="indigo">查 询</v-btn>
         </v-col>
       </v-row>-->
-      <v-data-table
+      <v-data-table  
         v-model="selected"
         :headers="headers"
         :items="desserts"
         :single-select="singleSelect"
         item-key="name"
         show-select
-        class="elevation-1"
+        class="elevation-1 mytable"
       >
         <template v-slot:top>
           <v-row>
@@ -123,3 +123,14 @@ export default {
   }
 };
 </script>
+<style >
+.mytable table tr th,td {
+    border: 1px solid rgba(113, 219, 191, 0.911);
+    padding: 0 0 0 0 ;
+    margin: 0 0 0 0;
+    
+}
+.mytable th{
+    background-color: #3AB796;    
+}
+</style>

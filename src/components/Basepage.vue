@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app style="background-color:rgb(188,245,191);">
+    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app >
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -21,11 +21,11 @@
             <template v-slot:activator>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.text }}</v-list-item-title>
+                  <v-list-item-title><strong>{{ item.text }}</strong></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </template>
-            <v-list-item style="background-color:rgb(255,255,255);" v-for="(child, i) in item.children" :key="i" @click="clickMenu(child.id)">
+            <v-list-item  class="pl-8" v-for="(child, i) in item.children" :key="i" @click="clickMenu(child.id)">
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -39,28 +39,28 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-title><strong>{{ item.text }}</strong></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app style="background-color:rgb(76,175,80);">
-        <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <span class="hidden-sm-and-down">病案统计</span>
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" style="background-color:rgba(88, 203, 146, 0.72);" app>
+        <v-toolbar-title style="width: 300px;color:#060736;" class="ml-0 pl-4">
+          <v-app-bar-nav-icon  color="#057982" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <strong class="hidden-sm-and-down">病案统计</strong>
         </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip right >
         <template v-slot:activator="{ on }">
-          <v-btn icon to="/about" v-on="on">
+          <v-btn icon color="#F68059" to="/">
             <v-icon>thumb_up_alt</v-icon>
           </v-btn>
         </template>
         <span>帮助手册</span>
       </v-tooltip>
-      <v-btn icon to="/">
+      <v-btn color="#FFBF39" icon to="/" >
         <v-icon>notifications</v-icon>
       </v-btn>
       <v-btn icon large @click="selectSource">
@@ -71,7 +71,7 @@
     </v-app-bar>
     <v-tooltip right>
       <template v-slot:activator="{ on }">
-        <v-btn bottom color="pink" dark fab fixed right @click="clickMenu('home')" v-on="on">
+        <v-btn bottom color="#FF6A4D" dark fab fixed right @click="clickMenu('home')" v-on="on">
           <v-icon>home</v-icon>
         </v-btn>
       </template>
@@ -107,18 +107,18 @@ export default {
           { icon: "file_upload", text: "数据上报", id: "data_upload" }
         ]
       },
-      {
-        icon: "keyboard_arrow_down",
-        "icon-alt":"keyboard_arrow_right",
-        text: "病案借阅",
-        model: false,
-        children: [
-          { text: "纸质病案借阅登记", id: "lend_paper" },
-          { text: "纸质病案归还登记", id: "back_paper" },
-          { text: "网络病案调阅登记", id: "lend_net" },
-          { text: "患者微信病案借阅预约", id: "weixin_reg" }
-        ]
-      },
+      // {
+      //   icon: "keyboard_arrow_down",
+      //   "icon-alt":"keyboard_arrow_right",
+      //   text: "病案借阅",
+      //   model: false,
+      //   children: [
+      //     { text: "纸质病案借阅登记", id: "lend_paper" },
+      //     { text: "纸质病案归还登记", id: "back_paper" },
+      //     { text: "网络病案调阅登记", id: "lend_net" },
+      //     { text: "患者微信病案借阅预约", id: "weixin_reg" }
+      //   ]
+      // },
        {
        icon: "keyboard_arrow_down",
         "icon-alt":"keyboard_arrow_right",
@@ -126,9 +126,9 @@ export default {
         model: false,
         id: "receive",
         children: [
-          { text: "病房日报", id: "ward_daily" },
-          { text: "门诊日报", id: "outp_daily" },
-          { text: "医技日报", id: "medi_daily" }
+          { icon: "assignment",text: "病房日报", id: "ward_daily" },
+          { icon: "assignment",text: "门诊日报", id: "outp_daily" },
+          { icon: "assignment",text: "医技日报", id: "medi_daily" }
         ]
       },
       {
@@ -180,6 +180,12 @@ export default {
           break;
         case "prn_rec":
           this.$router.push({ path: "/prn_rec" });
+          break;
+        case "urge":
+          this.$router.push({ path: "/urge" });
+          break;
+        case "unlock":
+          this.$router.push({ path: "/unlock" });
           break;
         default:
           // localStorage.removeItem("user");
