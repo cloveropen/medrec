@@ -69,11 +69,6 @@
         </v-avatar>
       </v-btn>
     </v-app-bar>
-    <!-- <v-container fluid fill-height>
-      <v-layout justify-start>
-        <v-img :src="require('../assets/main_bg.jpg')" />
-      </v-layout>
-    </v-container>-->
     <v-tooltip right>
       <template v-slot:activator="{ on }">
         <v-btn bottom color="pink" dark fab fixed right @click="clickMenu('home')" v-on="on">
@@ -82,11 +77,11 @@
       </template>
       <span>返回主页</span>
     </v-tooltip>
-    <v-footer absolute class="font-weight-medium" >
-      <v-col class="text-center" cols="12" >
-        {{ new Date().getFullYear() }} —
-        <strong>cloveropen</strong>
-      </v-col>
+    <v-footer app >
+      <v-spacer></v-spacer>
+      <div class="text-center">
+        {{ new Date().getFullYear() }}<strong>©cloveropen</strong>
+      </div>
     </v-footer>
   </div>
 </template>

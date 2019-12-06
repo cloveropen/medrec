@@ -1,10 +1,10 @@
 <template>
   <v-app id="medrec.cloveropen.com">
     <Basepage />
-    <v-container>
+    <v-container style="background-color:rgb(255,255,255);">
       <div>
         <v-toolbar>
-          <v-toolbar-title>病案查询</v-toolbar-title>
+          <v-toolbar-title>门诊日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -153,13 +153,6 @@ export default {
     caseNo: "",
     style: "display:none;",
     style1: "",
-    items: [
-      {
-        text: "患者信息查询",
-        disabled: true,
-        href: "breadcrumbs_link_1"
-      }
-    ]
   }),
   mounted: function() {
     //获取开始时间 取当前月的前一个月的一号
@@ -294,7 +287,7 @@ export default {
 </script>
 <style >
 .mytable table tr th,td {
-    border: 1px solid rgb(83, 77, 72);
+    border: 1px solid rgb(76,175,80);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     

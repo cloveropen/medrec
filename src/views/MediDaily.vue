@@ -4,9 +4,8 @@
     <v-container>
       <div>
         <v-toolbar>
-          <v-toolbar-title>医技日报</v-toolbar-title>
+          <v-toolbar-title>医技日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
       </div>
       <!-- 按时间查询 时间选择器 -->
@@ -221,7 +220,7 @@ export default {
 </script>
 <style >
 .mytable table tr th,td {
-    border: 1px solid rgb(83, 77, 72);
+    border: 1px solid rgb(76,175,80);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     

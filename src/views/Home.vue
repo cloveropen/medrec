@@ -1,7 +1,7 @@
 <template>
   <v-app id="medrec.cloveropen.com">
     <Basepage />
-    <v-container fluid >
+    <v-container fluid style="background-color:rgb(255,255,255);">
       <div class="text--primary" >
         <v-layout row wrap>
           <v-flex d-flex>
