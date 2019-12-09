@@ -93,6 +93,18 @@ export const router = new Router({
       name: "data_upload",
       component: () =>
         import(/* webpackChunkName: "query" */ "../views/DataUpload.vue")
+    },
+    {
+      path: "/copy_medrec",
+      name: "copy_medrec",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/CopyMedrec.vue")
+    },
+    {
+      path: "/prn_medrec",
+      name: "prn_medrec",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/PrnMedrec.vue")
     }
   ]
 });

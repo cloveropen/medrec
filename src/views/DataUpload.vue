@@ -2,7 +2,7 @@
   <v-app id="medrec.cloveropen.com">
     <Basepage />
     <v-container>
-      <v-toolbar>
+      <v-toolbar class="elevation-0">
         <v-toolbar-title>数据上报</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-breadcrumbs :items="items"></v-breadcrumbs>

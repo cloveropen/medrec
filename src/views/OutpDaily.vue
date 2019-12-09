@@ -3,7 +3,7 @@
     <Basepage />
     <v-container style="background-color:rgb(255,255,255);">
       <div>
-        <v-toolbar>
+        <v-toolbar class="elevation-0">
           <v-toolbar-title>门诊日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>

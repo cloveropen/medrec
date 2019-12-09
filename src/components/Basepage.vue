@@ -137,13 +137,13 @@ export default {
         text: "病案输出",
         model: false,
         children: [
-          { text: "病案复印登记", id: "copy_reg" },
-          { text: "病案打印", id: "prn_rec" }
+          { icon: "check",text: "病案复印登记", id: "copy_medrec" },
+          { icon: "print",text: "病案打印", id: "prn_medrec" }
         ]
       },
       { icon: "history", text: "催交病案", id: "urge" },
-      { icon: "content_copy", text: "解锁病案", id: "unlock" },
-      { icon: "help", text: "退出登录", id: "logout" }
+      { icon: "lock_open", text: "解锁病案", id: "unlock" },
+      { icon: "exit_to_app", text: "退出登录", id: "logout" }
     ]
   }),
   methods: {
@@ -175,11 +175,11 @@ export default {
         case "medi_daily":
           this.$router.push({ path: "/medi_daily" });
           break;
-        case "copy_reg":
-          this.$router.push({ path: "/copy_reg" });
+        case "copy_medrec":
+          this.$router.push({ path: "/copy_medrec" });
           break;
-        case "prn_rec":
-          this.$router.push({ path: "/prn_rec" });
+        case "prn_medrec":
+          this.$router.push({ path: "/prn_medrec" });
           break;
         case "urge":
           this.$router.push({ path: "/urge" });

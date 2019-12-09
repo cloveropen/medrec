@@ -3,7 +3,7 @@
     <Basepage />
     <v-container>
       <div>
-        <v-toolbar>
+        <v-toolbar class="elevation-0">
           <v-toolbar-title>数据审核</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>

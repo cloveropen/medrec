@@ -3,8 +3,8 @@
     <Basepage />
     <v-container>
       <div>
-        <v-toolbar>
-          <v-toolbar-title>病房日报统计</v-toolbar-title>
+        <v-toolbar class="elevation-0">
+          <v-toolbar-title >病房日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
