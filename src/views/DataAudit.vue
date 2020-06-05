@@ -1,10 +1,15 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage
+      v-bind:dialogSuccess="dialogSuccess"
+      v-bind:dialogError="dialogError"
+      v-bind:dialogSuccessContent="dialogSuccessContent"
+      v-bind:dialogErrorContent="dialogErrorContent"
+    />
     <v-container>
       <div>
         <v-toolbar class="elevation-0">
-          <v-toolbar-title>数据审核</v-toolbar-title>
+          <v-toolbar-title>病案审核</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -48,12 +53,7 @@
           </v-menu>
         </v-col>
         <v-col cols="8" sm="6" md="3">
-          <v-select
-          :items="items1"
-          label="审核病案首页"
-          dense
-          outlined
-        ></v-select>
+          <v-select :items="items1" label="审核病案首页" dense outlined></v-select>
         </v-col>
         <v-col cols="8" sm="6" md="2">
           <v-btn class="ma-2" outlined color="indigo" @click="selectMedrecInfo()">开始审核</v-btn>
@@ -64,17 +64,19 @@
           <thead>
             <tr>
               <th class="text-center">病案号</th>
-              <th class="text-center">住院次数</th>
               <th class="text-center">姓名</th>
+              <th class="text-center">字段</th>
               <th class="text-center">不合格内容</th>
+              <th class="text-center">说明</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in dataAudits" :key="item.caseNo" @dblclick="openMedrec(item.caseNo)">
+            <tr v-for="item in dataAudits" :key="item.seq" @dblclick="openMedrec(item.seq)">
               <td class="text-center">{{ item.caseNo }}</td>
-              <td class="text-center">{{ item.inTimes }}</td>
               <td class="text-center">{{ item.pname }}</td>
-              <td class="text-center">{{ item.reason }}</td>
+              <td class="text-center">{{ item.column }}</td>
+              <td class="text-center">{{ item.unqualified_content }}</td>
+              <td class="text-center">{{ item.explain }}</td>
             </tr>
           </tbody>
         </template>
@@ -105,6 +107,10 @@ export default {
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
     dataAudits: [],
     p_desserts: [],
     p_desserts2: [],
@@ -127,7 +133,6 @@ export default {
         href: "breadcrumbs_link_1"
       }
     ]
-
   }),
   mounted: function() {
     //获取开始时间 取当前月的前一个月的一号
@@ -147,7 +152,7 @@ export default {
   methods: {
     selectMedrecInfo() {
       let sel = this;
-      let tin = sel.dateBegin + "|" + sel.dateEnd ;
+      let tin = sel.dateBegin + "|" + sel.dateEnd;
       fetch(process.env.VUE_APP_MAIN_URL + "dataAudit/" + tin, {
         method: "get",
         mode: "cors",
@@ -158,7 +163,8 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.loginmsg = "病案查询失败" + response.err;
+            sel.dialogError = true;
+            sel.dialogErrorContent = "请求失败 " + response.err;
           }
           return response.json();
         })
@@ -166,10 +172,9 @@ export default {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
             sel.dataAudits = JSON.parse(data.outdata);
-            //console.log(sel.medrecInfo);
           } else {
-            //录入失败
-            sel.loginmsg = "病案查询失败";
+            sel.dialogError = true;
+            sel.dialogErrorContent = data.errorMsg;
           }
         })
         .catch(function() {
@@ -188,8 +193,8 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            window.alert("查询失败error");
-            sel.loginmsg = "查询失败" + response.err;
+            sel.dialogError = true;
+            sel.dialogErrorContent = "请求失败 " + response.err;
           }
           return response.json();
         })
@@ -204,13 +209,13 @@ export default {
             sel.p_desserts = JSON.parse(data.outdata).medrecDiag;
             sel.p_desserts2 = JSON.parse(data.outdata).medrecOpers;
           } else {
-            //查询失败
-            window.alert("查询失败!\n");
-            sel.loginmsg = "查询失败";
+            sel.dialogError = true;
+            sel.dialogErrorContent = data.errorMsg;
           }
         })
         .catch(function(err) {
-          window.alert("error=" + err);
+          sel.dialogError = true;
+          sel.dialogErrorContent = "请求异常：" + err;
         });
     },
     goback() {
@@ -236,28 +241,24 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.alertError = true;
-            sel.alertSuccess = false;
-            sel.loginmsg = "病案录入失败" + response.err;
+            sel.dialogError = true;
+            sel.dialogErrorContent = "请求失败 " + response.err;
           }
           return response.json();
         })
         .then(function(data) {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-            sel.alertSuccess = true;
-            sel.alertError = false;
+            sel.dialogSuccess = true;
+            sel.dialogSuccessContent = data.outdata;
           } else {
-            //录入失败
-            sel.alertError = true;
-            sel.alertSuccess = false;
-            sel.errorContent = data.outdata;
-            sel.loginmsg = "病案录入失败";
+            sel.dialogError = true;
+            sel.dialogErrorContent = data.errorMsg;
           }
         })
-        .catch(function() {
-          sel.alertError = true;
-          sel.alertSuccess = false;
+        .catch(function(err) {
+          sel.dialogError = true;
+          sel.dialogErrorContent = err;
         });
     }
   }

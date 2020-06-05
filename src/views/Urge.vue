@@ -1,6 +1,6 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage v-bind:dialogSuccess="dialogSuccess" v-bind:dialogError="dialogError" v-bind:dialogSuccessContent="dialogSuccessContent" v-bind:dialogErrorContent="dialogErrorContent"/>
     <v-container>
       <div>
         <v-toolbar class="elevation-0">
@@ -89,6 +89,10 @@ export default {
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
     items: [
       {
         text: "病案催交",

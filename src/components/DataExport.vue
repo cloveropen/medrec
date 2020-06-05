@@ -84,16 +84,16 @@ export default {
     exportN041 () {
       let sel = this;
       let tin = sel.dateBegin + "|" + sel.dateEnd;
-      fetch(process.env.VUE_APP_MAIN_URL+"excel/" + tin, {
+      fetch(encodeURI(process.env.VUE_APP_MAIN_URL+"excel/" + tin), {
         method: 'get',
         responseType: 'blob'
       }).then(res => {
         return res.blob();
       }).then(blob => {
         let bl = new Blob([blob], { type: "excel/xlsx" });
-        let fileName = Date.parse(new Date()) + ".xlsx";
+        let fileName = "卫统四表" + Date.parse(new Date()) + ".xlsx";
         var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
+        link.href = window.URL.createObjectURL(bl);
         link.download = fileName;
         link.click();
         window.URL.revokeObjectURL(link.href);

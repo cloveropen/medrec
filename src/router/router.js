@@ -95,16 +95,46 @@ export const router = new Router({
         import(/* webpackChunkName: "query" */ "../views/DataUpload.vue")
     },
     {
-      path: "/copy_medrec",
-      name: "copy_medrec",
+      path: "/medrec_copy",
+      name: "medrec_copy",
       component: () =>
-        import(/* webpackChunkName: "query" */ "../views/CopyMedrec.vue")
+        import(/* webpackChunkName: "query" */ "../views/MedrecCopy.vue")
     },
     {
-      path: "/prn_medrec",
-      name: "prn_medrec",
+      path: "/medrec_prn",
+      name: "medrec_prn",
       component: () =>
-        import(/* webpackChunkName: "query" */ "../views/PrnMedrec.vue")
+        import(/* webpackChunkName: "query" */ "../views/MedrecPrn.vue")
+    },
+    {
+      path: "/medrec_file",
+      name: "medrec_file",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/MedrecFile.vue")
+    },
+    {
+      path: "/medrec_borrow",
+      name: "medrec_borrow",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/MedrecBorrow.vue")
+    },
+    {
+      path: "/medrec_track",
+      name: "medrec_track",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/MedrecTrack.vue")
+    },
+    {
+      path: "/role_setter",
+      name: "role_setter",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/RoleSetter.vue")
+    },
+    {
+      path: "/user_setter",
+      name: "user_setter",
+      component: () =>
+        import(/* webpackChunkName: "query" */ "../views/UserSetter.vue")
     }
   ]
 });
@@ -118,6 +148,5 @@ router.beforeEach((to, from, next) => {
   if (authRequired && !loggedIn) {
     return next("/login");
   }
-
   next();
 });

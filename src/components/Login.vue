@@ -93,7 +93,7 @@ export default {
         this.passwd +
         '","opstatus":""}';
       let sel = this;
-      fetch(process.env.VUE_APP_LOGIN_URL, {
+      fetch("https://sso.clovercdr.com:9001/api/v1/login", {
         method: "post",
         //credentials: 'include',
         body: tinstr,
@@ -144,7 +144,6 @@ export default {
                 console.log("保存成功=" + JSON.stringify(data));
               });
             // ------------------------------------------------------------------------------------------------
-    
           } else {
             //登录失败
             window.alert("登录失败!\n");

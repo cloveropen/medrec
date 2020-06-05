@@ -6,10 +6,10 @@
       v-bind:dialogSuccessContent="dialogSuccessContent"
       v-bind:dialogErrorContent="dialogErrorContent"
     />
-    <v-container style="background-color:rgb(255,255,255);">
+    <v-container>
       <div>
         <v-toolbar class="elevation-0">
-          <v-toolbar-title>医院门诊情况报表</v-toolbar-title>
+          <v-toolbar-title>病房日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -56,108 +56,123 @@
           <v-text-field label="请输入住院号" outlined v-model="caseNo"></v-text-field>
         </v-col>-->
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="selectOutpDaily()">查 询</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="selectWardDaily()">查 询</v-btn>
         </v-col>
-
         <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="saveOutpDaily()">保 存</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" @click="saveWardDaily()">保 存</v-btn>
         </v-col>
-        <!-- <v-col cols="8" sm="6" md="2">
-          <v-btn class="ma-2" outlined color="indigo" @click="exportExcel()">测试导出excel</v-btn>
-        </v-col>-->
       </v-row>
-      <v-simple-table class="mytable2">
+      <v-simple-table dense class="mytable">
         <template>
           <thead>
             <tr></tr>
             <tr>
-              <th class="text-center">        </th>
-              <th class="text-center">总计(人)</th>
-              <th class="text-center">内科(人)</th>
-              <th class="text-center">外科(人)</th>
-              <th class="text-center">骨科(人)</th>
-              <th class="text-center">肛肠科(人)</th>
-              <th class="text-center">康复理疗科(人)</th>
-              <th class="text-center">妇科(人)</th>
-              <th class="text-center">儿科(人)</th>
-              <th class="text-center">耳鼻喉(人)</th>
-              <th class="text-center">口腔科(人)</th>
-              <th class="text-center">皮肤科(人)</th>
-              <th class="text-center">中医科(人)</th>
+              <th class="text-center" rowspan="4">病房</th>
+              <th class="text-center" rowspan="4">日期</th>
+              <th class="text-center" rowspan="4">实际开放床数</th>
+              <th class="text-center" rowspan="4">原有人数</th>
+              <th class="text-center" rowspan="4">入院人数</th>
+              <th class="text-center" rowspan="4">他科转入</th>
+              <th class="text-center" rowspan="1" colspan="13">出院人数</th>
+              <th class="text-center" rowspan="2" colspan="2">总床日数</th>
+              <th class="text-center" rowspan="4">现有人数</th>
+              <th class="text-center" rowspan="4">转科</th>
+              <th class="text-center" rowspan="4">陪护数</th>
+            </tr>
+            <tr>
+              <th class="text-center" rowspan="3" colspan="1">出院人数</th>
+              <th class="text-center" rowspan="1" colspan="7">出院病人数</th>
+              <th class="text-center" rowspan="1" colspan="5">其他</th>
+            </tr>
+            <tr>
+              <th class="text-center" rowspan="2" colspan="1">治愈</th>
+              <th class="text-center" rowspan="2" colspan="1">好转</th>
+              <th class="text-center" rowspan="2" colspan="1">未愈</th>
+              <th class="text-center" rowspan="2" colspan="1">死亡</th>
+              <th class="text-center" rowspan="1" colspan="3">死亡原因</th>
+              <th class="text-center" rowspan="2" colspan="1">小计</th>
+              <th class="text-center" rowspan="2" colspan="1">非病人数</th>
+              <th class="text-center" rowspan="2" colspan="1">正常分娩</th>
+              <th class="text-center" rowspan="2" colspan="1">未产出院</th>
+              <th class="text-center" rowspan="2" colspan="1">计划生育</th>
+              <th class="text-center" rowspan="2" colspan="1">其他占床日数</th>
+              <th class="text-center" rowspan="2" colspan="1">病人占床日</th>
+            </tr>
+            <tr>
+              <th class="text-center" rowspan="1" colspan="1">终末</th>
+              <th class="text-center" rowspan="1" colspan="1">无效</th>
+              <th class="text-center" rowspan="1" colspan="1">未治</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in outpDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+            <tr v-for="item in wardDaily" :key="item.seq">
+              <td class="text-center">{{item.ward}}</td>
               <td class="text-center">{{item.recordDate}}</td>
-              <td class="text-center">{{item.dept}}</td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.workDays"></v-text-field>
+                <v-text-field class="abc" v-model="item.openBedsNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.firstVisitNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.originalNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.subVisitNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.admissionNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.diagnosticNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.otherDeptShift"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.healthExam"></v-text-field>
+                <v-text-field class="abc" v-model="item.outNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.observeStay"></v-text-field>
+                <v-text-field class="abc" v-model="item.cure"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.rescueNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.becomeBetter"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.rescueSuccessNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.healed"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.criticalRescueNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.death"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.emerRoomDeathNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.terminal"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.obserRoomDeathNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.invalid"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.registeredNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.untreated"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.freeRegistered"></v-text-field>
+                <v-text-field class="abc" v-model="item.subtotal"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.ordinaryNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.noDiseaseNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.emergencyNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.normalLabor"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.expertNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.nulliparousDischarge"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.basicInsurance"></v-text-field>
+                <v-text-field class="abc" v-model="item.familyPlanning"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.commercialInsurance"></v-text-field>
+                <v-text-field class="abc" v-model="item.otherOccupyingBed"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.other"></v-text-field>
+                <v-text-field class="abc" v-model="item.patientOccupyingBed"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.outCall"></v-text-field>
+                <v-text-field class="abc" v-model="item.currentNum"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.familySickbed"></v-text-field>
+                <v-text-field class="abc" v-model="item.shiftDept"></v-text-field>
               </td>
               <td class="text-center">
-                <v-text-field class="abc" v-model="item.district"></v-text-field>
-              </td>
-              <td class="text-center">
-                <v-text-field class="abc" v-model="item.inpatientNum"></v-text-field>
+                <v-text-field class="abc" v-model="item.accompanyNum"></v-text-field>
               </td>
             </tr>
           </tbody>
@@ -166,8 +181,8 @@
       <div :style="style">
         <v-btn small class="success" @click="goback()">返回上一页</v-btn>
         <Medrecinfo
-          v-bind:desserts="pDesserts"
-          v-bind:desserts2="pDesserts2"
+          v-bind:desserts="p_desserts"
+          v-bind:desserts2="p_desserts2"
           v-bind:medrecInfo="medrecInfo"
           v-bind:medrecCost="medrecCost"
         />
@@ -177,22 +192,20 @@
 </template>
 <script>
 import Basepage from "../components/Basepage";
-import Medrecinfo from "../components/Medrecinfo";
 export default {
   components: {
-    Basepage,
-    Medrecinfo
+    Basepage
   },
   data: () => ({
     dateBegin: new Date().toISOString().substr(0, 10),
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    wardDaily: [],
     dialogSuccess: false,
     dialogError: false,
     dialogSuccessContent: "",
     dialogErrorContent: "",
-    outpDaily: [],
     caseNo: "",
     style: "display:none;",
     style1: ""
@@ -213,10 +226,10 @@ export default {
     sel.dateBegin = year + "-" + month + "-" + day;
   },
   methods: {
-    selectOutpDaily() {
+    selectWardDaily() {
       let sel = this;
       let tin = sel.dateBegin + "|" + sel.dateEnd;
-      fetch(process.env.VUE_APP_MAIN_URL + "getOutpDaily/" + tin, {
+      fetch(process.env.VUE_APP_MAIN_URL + "getWardDaily/" + tin, {
         method: "get",
         mode: "cors",
         headers: {
@@ -226,27 +239,26 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.dialogError = true;
-            sel.dialogErrorContent = "请求失败 " + response.err;
+            sel.loginmsg = "病案查询失败" + response.err;
           }
           return response.json();
         })
         .then(function(data) {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
-            sel.outpDaily = JSON.parse(data.outdata);
+            sel.wardDaily = JSON.parse(data.outdata);
           } else {
             sel.dialogError = true;
             sel.dialogErrorContent = data.errorMsg;
           }
         })
         .catch(function() {
-          sel.loginmsg = "门诊日报失败";
+          sel.loginmsg = "病案查询失败";
         });
     },
-    openMedrec(caseNo) {
+    openMedrec(case_no) {
       let sel = this;
-      fetch(process.env.VUE_APP_MAIN_URL + "medrec/" + caseNo, {
+      fetch(process.env.VUE_APP_MAIN_URL + "medrec/" + case_no, {
         method: "get",
         mode: "cors",
         headers: {
@@ -256,8 +268,8 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.dialogError = true;
-            sel.dialogErrorContent = "请求失败 " + response.err;
+            window.alert("查询失败error");
+            sel.loginmsg = "查询失败" + response.err;
           }
           return response.json();
         })
@@ -269,8 +281,8 @@ export default {
             sel.style = "";
             sel.medrecInfo = JSON.parse(data.outdata).medrecInfo;
             sel.medrecCost = JSON.parse(data.outdata).medrecCost;
-            sel.pDesserts = JSON.parse(data.outdata).medrecDiag;
-            sel.pDesserts2 = JSON.parse(data.outdata).medrecOpers;
+            sel.p_desserts = JSON.parse(data.outdata).medrecDiag;
+            sel.p_desserts2 = JSON.parse(data.outdata).medrecOpers;
           } else {
             sel.dialogError = true;
             sel.dialogErrorContent = data.errorMsg;
@@ -289,14 +301,14 @@ export default {
   }
 };
 </script>
-<style >
-.mytable2 table tr th,
+<style>
+.mytable table tr th,
 td {
-  border: 1px solid rgba(194, 235, 216, 0.911);
+  border: 1px solid rgb(35, 155, 155);
   padding: 0 0 0 0;
   margin: 0 0 0 0;
 }
-.mytable2 th {
-  background-color: rgb(81, 207, 144);
+.mytable th {
+  background-color: rgb(236, 225, 61);
 }
 </style>

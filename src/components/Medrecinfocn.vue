@@ -386,96 +386,62 @@
               </v-radio-group>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col>
-              <v-simple-table>
-                <template>
-                  <thead>
-                    <tr>
-                      <th class="text-center" colspan="2">出院诊断</th>
-                      <th class="text-center">疾病编码</th>
-                      <th class="text-center">入院情况</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in desserts" :key="item.caseNo">
-                      <td class="text-center">
-                        <div v-if="item.diagType === '1'">
-                          <span>主要诊断:</span>
-                        </div>
-                        <div v-else>
-                          <span>其他诊断:</span>
-                        </div>
-                      </td>
-                      <td>
-                        <v-text-field class="abc" v-model="item.diagName" ></v-text-field>
-                      </td>
-                      <td class="text-center"><v-text-field class="abc" v-model="item.diagCode" ></v-text-field></td>
-                      <td class="text-center"><v-text-field class="abc" v-model="item.inCondition" ></v-text-field></td>
-                    </tr>
-                  </tbody>
-                  </template>
-              </v-simple-table>
-            </v-col>
-            <v-col>
-              <v-simple-table>
-                <template>
-                  <thead>
-                    <tr>
-                      <th class="text-center" colspan="2">出院诊断</th>
-                      <th class="text-center">疾病编码</th>
-                      <th class="text-center">入院情况</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in desserts" :key="item.caseNo">
-                      <td class="text-center">
-                        <div v-if="item.diagType === '1'">
-                          <span>主要诊断:</span>
-                        </div>
-                        <div v-else>
-                          <span>其他诊断:</span>
-                        </div>
-                      </td>
-                      <td>
-                        <v-text-field class="abc" v-model="item.diagName" ></v-text-field>
-                      </td>
-                      <td class="text-center"><v-text-field class="abc" v-model="item.diagCode" ></v-text-field></td>
-                      <td class="text-center"><v-text-field class="abc" v-model="item.inCondition" ></v-text-field></td>
-                    </tr>
-                  </tbody>
-                  </template>
-              </v-simple-table>
-            </v-col>
-          </v-row>
-          
+          <v-simple-table>
+            <template>
+              <thead>
+                <tr>
+                  <th class="text-center" colspan="2">出院诊断</th>
+                  <th class="text-center">疾病编码</th>
+                  <th class="text-center">入院情况</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in desserts" :key="item.caseNo">
+                  <td class="text-center">
+                    <div v-if="item.diagType === '1'">
+                      <span>主要诊断:</span>
+                    </div>
+                    <div v-else>
+                      <span>其他诊断:</span>
+                    </div>
+                  </td>
+                  <td>
+                    <v-text-field class="abc" v-model="item.diagName" ></v-text-field>
+                  </td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.diagCode" ></v-text-field></td>
+                  <td class="text-center"><v-text-field class="abc" v-model="item.inCondition" ></v-text-field></td>
+                </tr>
+              </tbody>
+              </template>
+          </v-simple-table>
           <v-row>
             <v-col cols="12">
-              <v-text
+              <v-text-field
+                v-model="medrecInfo.maritalStatus"
                 disable
-                vaule=" 入院病情：1.有，2.临床未确定，3.情况不明，4.无"
-              ></v-text>
+                label=" 入院病情：1.有，2.临床未确定，3.情况不明，4.无"
+              ></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" md="6">
               <v-text-field
                 class="abc"
-                v-model="medrecInfo.poisoning"
+                v-model="medrecInfo.maritalStatus"
                 disable
                 label="损伤、中毒的外部原因"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
-              <v-text-field class="abc" v-model="medrecInfo.poisoningId" disable label="疾病编码"></v-text-field>
+              <v-text-field class="abc" v-model="medrecInfo.maritalStatus" disable label="疾病编码"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" md="6">
-              <v-text-field class="abc" v-model="medrecInfo.pathologicName" disable label="病理诊断"></v-text-field>
+              <v-text-field class="abc" v-model="medrecInfo.maritalStatus" disable label="病理诊断"></v-text-field>
             </v-col>
             <v-col cols="12" md="2">
-              <v-text-field class="abc" v-model="medrecInfo.pathologicId" disable label="疾病编码"></v-text-field>
+              <v-text-field class="abc" v-model="medrecInfo.maritalStatus" disable label="疾病编码"></v-text-field>
             </v-col>
             <v-col cols="12" md="2">
               <v-text-field class="abc" v-model="medrecInfo.pathologyNo" disable label="病理号"></v-text-field>
@@ -547,21 +513,18 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="6">
               <v-radio-group v-model="medrecInfo.quality" label="病案质量" row>
                 <v-radio label="1.甲" color="green" value="1"></v-radio>
                 <v-radio label="2.乙" color="green" value="2"></v-radio>
                 <v-radio label="3.丙" color="green" value="3"></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="3">
               <v-text-field class="abc" v-model="medrecInfo.qcDoc" label="质控医师"></v-text-field>
             </v-col>
-            <v-col cols="12" md="2">
-              <v-text-field class="abc" v-model="medrecInfo.qcNurse" label="质控护士"></v-text-field>
-            </v-col>
             <v-col cols="12" md="3">
-              <v-text-field class="abc" v-model="medrecInfo.qcNurse" label="质控日期"></v-text-field>
+              <v-text-field class="abc" v-model="medrecInfo.qcNurse" label="质控护士"></v-text-field>
             </v-col>
           </v-row>
           <v-simple-table>
@@ -601,7 +564,7 @@
               <v-radio-group v-model="medrecInfo.disWay" label="离院方式" row>
                 <v-radio label="1.医嘱离院" color="green" value="1"></v-radio>
                 <v-radio label="2.医嘱转院" color="green" value="2"></v-radio>
-                <v-col cols="12" md="4">
+                <v-col cols="12" md="3">
                   <v-text-field class="abc" v-model="medrecInfo.disHosOrg" label="拟接收医疗机构名称"></v-text-field>
                 </v-col>
                 <v-radio label="3.医嘱转社区卫生服务机构/乡镇卫生院" color="green" value="3"></v-radio>
@@ -615,22 +578,19 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="3">
               <v-radio-group v-model="medrecInfo.readm" label="是否有出院31天内再住院计划" row>
                 <v-radio label="1.无" color="green" value="1"></v-radio>
                 <v-radio label="2.有" color="green" value="2"></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="3">
               <v-text-field class="abc" v-model="medrecInfo.readmPurp" label="目的"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field class="abc" v-model="medrecInfo.cinjPreDays" label="颅脑损伤患者昏迷时间入院前"></v-text-field>
-            </v-col>
-             <v-col cols="12" md="6">
-              <v-text-field class="abc" v-model="medrecInfo.cinjAftDays" label="颅脑损伤患者昏迷时间入院后"></v-text-field>
+            <v-col cols="12" md="3">
+              <v-text-field class="abc" v-model="medrecInfo.cinjPreDays" label="颅脑损伤患者昏迷时间"></v-text-field>
             </v-col>
           </v-row>
           <v-row>

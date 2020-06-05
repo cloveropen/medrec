@@ -9,7 +9,7 @@
     <v-container style="background-color:rgb(255,255,255);">
       <div>
         <v-toolbar class="elevation-0">
-          <v-toolbar-title>医院门诊情况报表</v-toolbar-title>
+          <v-toolbar-title>门诊日报统计</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-breadcrumbs :items="items"></v-breadcrumbs>
         </v-toolbar>
@@ -71,19 +71,31 @@
           <thead>
             <tr></tr>
             <tr>
-              <th class="text-center">        </th>
-              <th class="text-center">总计(人)</th>
-              <th class="text-center">内科(人)</th>
-              <th class="text-center">外科(人)</th>
-              <th class="text-center">骨科(人)</th>
-              <th class="text-center">肛肠科(人)</th>
-              <th class="text-center">康复理疗科(人)</th>
-              <th class="text-center">妇科(人)</th>
-              <th class="text-center">儿科(人)</th>
-              <th class="text-center">耳鼻喉(人)</th>
-              <th class="text-center">口腔科(人)</th>
-              <th class="text-center">皮肤科(人)</th>
-              <th class="text-center">中医科(人)</th>
+              <th class="text-center">日期</th>
+              <th class="text-center">科室</th>
+              <th class="text-center">工作日数</th>
+              <th class="text-center">初诊数</th>
+              <th class="text-center">复诊数</th>
+              <th class="text-center">诊查数</th>
+              <th class="text-center">健康检查</th>
+              <th class="text-center">留诊观察</th>
+              <th class="text-center">抢救人数</th>
+              <th class="text-center">抢救成功人数</th>
+              <th class="text-center">危重抢救数</th>
+              <th class="text-center">急诊室死亡人数</th>
+              <th class="text-center">观察室死亡人数</th>
+              <th class="text-center">挂号数量</th>
+              <th class="text-center">免挂</th>
+              <th class="text-center">普通号</th>
+              <th class="text-center">急诊号</th>
+              <th class="text-center">专家号</th>
+              <th class="text-center">基保</th>
+              <th class="text-center">商保</th>
+              <th class="text-center">其他</th>
+              <th class="text-center">出诊</th>
+              <th class="text-center">赴家庭病床</th>
+              <th class="text-center">地段</th>
+              <th class="text-center">住院诊疗人数</th>
             </tr>
           </thead>
           <tbody>

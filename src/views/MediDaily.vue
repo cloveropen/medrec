@@ -1,10 +1,10 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage v-bind:dialogSuccess="dialogSuccess" v-bind:dialogError="dialogError" v-bind:dialogSuccessContent="dialogSuccessContent" v-bind:dialogErrorContent="dialogErrorContent"/>
     <v-container>
       <div >
         <v-toolbar class="elevation-0">
-          <v-toolbar-title>医技日报统计</v-toolbar-title>
+          <v-toolbar-title>医院医技情况报表</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
       </div>
@@ -56,22 +56,207 @@
           <v-btn class="ma-2" outlined color="indigo" @click="saveMediDaily()">保 存</v-btn>
         </v-col>
       </v-row>
-      <v-simple-table class="mytable">
+      <v-simple-table class="mytable3">
         <template>
           <thead>
             <tr>
-              <tr>
-                     <th class="text-center">日期</th>
-                     <th class="text-center">医技项目</th>
-                     <th class="text-center">医技科室</th>
-                     <th class="text-center">申请科室</th>
-                     <th class="text-center">申请人次</th>
-                     <th class="text-center">收费标准</th>
-                     <th class="text-center">实际费用</th>
-                     <th class="text-center">套(件)数</th>
-                     <th class="text-center">阳性数</th>
-                     <th class="text-center">备注</th>
-                </tr>
+              <th class="text-center" rowspan="2">检验科</th>
+              <th class="text-center" colspan="2">总计</th>
+              <th class="text-center" colspan="2">临床</th>
+              <th class="text-center" colspan="2">微生物</th>
+              <th class="text-center" colspan="2">生化</th>
+              <th class="text-center" colspan="2">免疫</th>
+              <th class="text-center" colspan="2">细胞学</th>
+            </tr>
+            <tr>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">项数(项)</th>
+              <th class="text-center">人次(人)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table class="mytable3">
+        <template>
+          <thead>
+            <tr>
+              <th class="text-center" rowspan="2">放射线科</th>
+              <th class="text-center" colspan="3">透视人次(人)</th>
+              <th class="text-center" colspan="2">CR</th>
+              <th class="text-center" rowspan="2" colspan="2">照影人次(人)</th>
+              <th class="text-center" rowspan="2" colspan="2">介入治疗人次(人)</th>
+              <th class="text-center" rowspan="2" colspan="2">CT人次(人)</th>
+            </tr>
+            <tr>
+              <th class="text-center">合计(人)</th>
+              <th class="text-center">普透(人)</th>
+              <th class="text-center">钡透(人)</th>
+              <th class="text-center">人次(人)</th>
+              <th class="text-center">片数(片)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table class="mytable3">
+        <template>
+          <thead>
+            <tr>
+              <th class="text-center">功能检验科</th>
+              <th class="text-center">心电图(人)</th>
+              <th class="text-center">超声心动(人)</th>
+              <th class="text-center">扇扫(人)</th>
+              <th class="text-center">B超(人)</th>
+              <th class="text-center">彩色多普勒(人)</th>
+              <th class="text-center">脑彩超(人)</th>
+              <th class="text-center">肺功能测定(人)</th>
+              <th class="text-center">血气分析(人)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table class="mytable3">
+        <template>
+          <thead>
+            <tr>
+              <th class="text-center">康复科</th>
+              <th class="text-center">合计</th>
+              <th class="text-center">光疗(人)</th>
+              <th class="text-center">声疗(人)</th>
+              <th class="text-center">康复(人)</th>
+              <th class="text-center">理疗(人)</th>
+              <th class="text-center">牵引(人)</th>
+              <th class="text-center">按摩(人)</th>
+              <th class="text-center">针灸(人)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table class="mytable3">
+        <template>
+          <thead>
+            <tr>
+              <th class="text-center" rowspan="2">手术室</th>
+              <th class="text-center" colspan="3">手术例数(例)</th>
+              <th class="text-center" colspan="5">麻醉次数(次)</th>
+              <th class="text-center" rowspan="2">合计</th>
+              <th class="text-center" rowspan="2">胃镜(次)</th>
+              <th class="text-center" rowspan="2">肠镜(次)</th>
+              <th class="text-center" rowspan="2">气管镜(次)</th>
+              <th class="text-center" rowspan="2">宫腔镜(次)</th>
+              <th class="text-center" rowspan="2">腹腔镜(次)</th>
+            </tr>
+            <tr>
+              
+              <th class="text-center">合计(例)</th>
+              <th class="text-center">急诊(例)</th>
+              <th class="text-center">择期(例)</th>
+              <th class="text-center">合计(次)</th>
+              <th class="text-center">全麻(次)</th>
+              <th class="text-center">局麻(次)</th>
+              <th class="text-center">硬膜外(次)</th>
+              <th class="text-center">臂丛(次)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
+              <td class="text-center">{{item.recordDate}}</td>
+              <td class="text-center">{{item.mediProject}}</td>
+              <td class="text-center">{{item.mediDept}}</td>
+              <td class="text-center">{{item.applyDept}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.applyNum" ></v-text-field></td>
+              <td class="text-center">{{item.chargeStandard}}</td>
+              <td class="text-center">{{item.actualCost}}</td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.itemNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.positiveNum" ></v-text-field></td>
+              <td class="text-center"><v-text-field class="abc" v-model="item.remarks" ></v-text-field></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table class="mytable3">
+        <template>
+          <thead>
+            <tr>
+              <th class="text-center" rowspan="2">药剂科</th>
+              <th class="text-center" colspan="4">处方(张)</th>
+              <th class="text-center" colspan="5">制剂(瓶)</th>
+            </tr>
+            <tr>
+              <th class="text-center">合计</th>
+              <th class="text-center">西药</th>
+              <th class="text-center">中成药</th>
+              <th class="text-center">饮片</th>
+              <th class="text-center">合计</th>
+              <th class="text-center">生理盐水</th>
+              <th class="text-center">注射用水</th>
+              <th class="text-center">5%葡萄糖</th>
+              <th class="text-center">10%葡萄糖</th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="item in mediDaily" :key="item.seq" @dblclick="openMedrec(item.seq)">
@@ -115,6 +300,10 @@ export default {
     menu1: false,
     menu2: false,
     mediDaily: [],
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
     caseNo: "",
     style: "display:none;",
     style1: "",
@@ -155,7 +344,8 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            sel.loginmsg = "医技日报失败" + response.err;
+            sel.dialogError = true;
+            sel.dialogErrorContent = "请求失败 " + response.err;
           }
           return response.json();
         })
@@ -163,10 +353,9 @@ export default {
           let topstatus = data.resultCode;
           if (topstatus == "0") {
             sel.mediDaily = JSON.parse(data.outdata);
-            //console.log(sel.medrecInfo);
           } else {
-            //录入失败
-            sel.loginmsg = "医技日报失败";
+          sel.dialogError = true;
+          sel.dialogErrorContent = data.errorMsg;
           }
         })
         .catch(function() {
@@ -185,8 +374,8 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            window.alert("查询失败error");
-            sel.loginmsg = "查询失败" + response.err;
+            sel.dialogError = true;
+            sel.dialogErrorContent = "请求失败 " + response.err;
           }
           return response.json();
         })
@@ -201,13 +390,13 @@ export default {
             sel.p_desserts = JSON.parse(data.outdata).medrecDiag;
             sel.p_desserts2 = JSON.parse(data.outdata).medrecOpers;
           } else {
-            //查询失败
-            window.alert("查询失败!\n");
-            sel.loginmsg = "查询失败";
+            sel.dialogError = true;
+            sel.dialogErrorContent = data.errorMsg;
           }
         })
         .catch(function(err) {
-          window.alert("error=" + err);
+          sel.dialogError = true;
+          sel.dialogErrorContent = "请求异常：" + err;
         });
     },
     goback() {
@@ -219,13 +408,13 @@ export default {
 };
 </script>
 <style >
-.mytable table tr th,td {
-    border: 1px solid rgba(113, 219, 191, 0.911);
+.mytable3 table tr th,td {
+    border: 1px solid rgb(241, 168, 226);
     padding: 0 0 0 0 ;
     margin: 0 0 0 0;
     
 }
-.mytable th{
-    background-color: #3AB796;    
+.mytable3 th{
+    background-color: rgba(74, 215, 240);    
 }
 </style>

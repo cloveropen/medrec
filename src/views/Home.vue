@@ -1,57 +1,47 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage v-bind:dialogSuccess="dialogSuccess" v-bind:dialogError="dialogError" v-bind:dialogSuccessContent="dialogSuccessContent" v-bind:dialogErrorContent="dialogErrorContent"/>
     <v-container fluid style="background-color:rgb(255,255,255);">
       <div class="text--primary" >
         <v-layout row wrap>
           <v-flex d-flex>
-            <!-- Using a dynamic class -->
-            <v-hover>
+           <v-hover>
               <template v-slot="{ hover }">
                 <div
                   :class="`elevation-${hover ? 24 : 6}`"
-                  class="mx-auto pa-6 transition-swing"
+                  class="mx-auto pa-2 transition-swing"
                   style="width:600px"
                 >
-                  <b>病案接口</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
+                  <b>病案首页</b>
+                  <v-row class='mb-6' dense>
+                    <v-col>
+                      <div class="my-2" align="center">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('receive')">
+                          <v-icon>mdi-domain</v-icon>
+                        </v-btn>
+                        <div class="my-6"></div>
+                        病案录入
+                      </div>
+                    </v-col>
+                    <v-col>
+                      <div class="my-2" align="center">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('data_audit')">
+                          <v-icon>mdi-domain</v-icon>
+                        </v-btn>
+                        <div class="my-6"></div>
+                        病案审核
+                      </div>
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
                         <v-btn color="#3AB796" fab x-large dark @click="clickItem('query')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        患者病案查询
+                        病案查询
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
-                      <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
-                          <v-icon>mdi-domain</v-icon>
-                        </v-btn>
-                        <div class="my-6"></div>
-                        归档病案
-                      </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
-                      <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('unlock')">
-                          <v-icon>mdi-domain</v-icon>
-                        </v-btn>
-                        <div class="my-6"></div>
-                        病案解锁
-                      </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </div>
               </template>
             </v-hover>
@@ -66,45 +56,36 @@
                   class="mx-auto pa-2 transition-swing"
                   style="width:600px"
                 >
-                  <b>数字化病案</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
+                  <b>统计报表</b>
+                  <v-row class='mb-6' dense>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('ward_daily')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        历史病案扫描
+                        病房日报统计
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('outp_daily')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        医疗文书扫描
+                        门诊日报统计
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medi_daily')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        历史病案浏览
+                        医技日报统计
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </div>
               </template>
             </v-hover>
@@ -117,45 +98,36 @@
                   class="mx-auto pa-2 transition-swing"
                   style="width:600px"
                 >
-                  <b>数字化病案跟踪</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
+                  <b>病案归档及借阅</b>
+                  <v-row class='mb-6' dense>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_file')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        患者病案跟踪
+                        病案归档与退回
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_borrow')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        借阅跟踪
+                        病案借阅与归还
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_track')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        挂失封存跟踪
+                        病案跟踪
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </div>
               </template>
             </v-hover>
@@ -168,101 +140,40 @@
                   class="mx-auto pa-2 transition-swing"
                   style="width:600px"
                 >
-                  <b>病案统计报表</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
+                  <b>病案输出</b>
+                  <v-row class='mb-6' dense>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_info')">
-                          <v-icon>mdi-domain</v-icon>
-                        </v-btn>
-                        <div class="my-6"></div>
-                        卫统表
-                      </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
-                      <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
-                          <v-icon>mdi-domain</v-icon>
-                        </v-btn>
-                        <div class="my-6"></div>
-                        市级报表
-                      </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
-                      <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
-                          <v-icon>mdi-domain</v-icon>
-                        </v-btn>
-                        <div class="my-6"></div>
-                        本院报表
-                      </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
-                </div>
-              </template>
-            </v-hover>
-          </v-flex>
-          <v-flex d-flex>
-            <v-hover>
-              <template v-slot="{ hover }">
-                <div
-                  :class="`elevation-${hover ? 24 : 6}`"
-                  class="mx-auto pa-2 transition-swing"
-                  style="width:600px"
-                >
-                  <b>病案服务</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
-                      <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_prn')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
                         病案打印
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('medrec_copy')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        病案借阅浏览
+                        病案复印
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('data_upload')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        病案云复印预约
+                        病案上传
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </div>
               </template>
             </v-hover>
           </v-flex>
-
           <v-flex d-flex>
             <v-hover>
               <template v-slot="{ hover }">
@@ -272,44 +183,69 @@
                   style="width:600px"
                 >
                   <b>词典设置</b>
-                  <v-layout row wrap>
-                    <v-flex d-flex
-                      >&emsp;
+                  <v-row class='mb-6' dense>
+                    <v-col>
                       <div class="my-2" align="center">
                         <v-btn color="#3AB796" fab x-large dark @click="clickItem('dict_icd10')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        疾病编码目录
+                        ICD10诊断词典
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('dict_icd9_cm')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        科室词典
+                        手术编码词典
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                    <v-flex d-flex
-                      >&emsp;
+                    </v-col>
+                    <v-col>
                       <div class="my-2" align="center">
-                        <v-btn color="#3AB796" fab x-large dark>
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('dict_dise_patt')">
                           <v-icon>mdi-domain</v-icon>
                         </v-btn>
                         <div class="my-6"></div>
-                        操作人员
+                        中医病证词典
                       </div>
-                    </v-flex>
-                    <v-spacer>&emsp;&emsp;</v-spacer
-                    ><v-spacer>&emsp;&emsp;</v-spacer>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
+                </div>
+              </template>
+            </v-hover>
+          </v-flex>
+
+          <v-flex d-flex>
+            <v-hover>
+              <template v-slot="{ hover }">
+                <div
+                  :class="`elevation-${hover ? 24 : 6}`"
+                  class="mx-auto pa-2 transition-swing"
+                  style="width:600px"
+                >
+                  <b>系统管理</b>
+                  <v-row class='mb-6' dense>
+                    <v-col>
+                      <div class="my-3" align="center">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('role_setter')">
+                          <v-icon>mdi-domain</v-icon>
+                        </v-btn>
+                        <div class="my-6"></div>
+                        权限管理
+                      </div>
+                    </v-col>
+                    <v-col>
+                      <div class="my-3" align="center">
+                        <v-btn color="#3AB796" fab x-large dark @click="clickItem('user_setter')">
+                          <v-icon>mdi-domain</v-icon>
+                        </v-btn>
+                        <div class="my-6"></div>
+                        用户管理
+                      </div>
+                    </v-col>
+                  </v-row>
                 </div>
               </template>
             </v-hover>
@@ -326,6 +262,12 @@ export default {
   components: {
     Basepage
   },
+  data:()=>({
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
+  }),
   methods: {
     clickItem(tstr) {
       console.log("点击=" + tstr);
@@ -334,26 +276,32 @@ export default {
         this.$router.push({ path: "/login" });
       }
       switch (tstr) {
+        case "receive":
+          this.$router.push({ path: "/receive" });
+          break;
+        case "data_audit":
+          this.$router.push({ path: "/data_audit" });
+          break;
         case "query":
           this.$router.push({ path: "/query" });
           break;
-        case "out_cash":
-          this.$router.push({ path: "/outcash" });
+        case "ward_daily":
+          this.$router.push({ path: "/ward_daily" });
           break;
-        case "unlock":
-          this.$router.push({ path: "/unlock" });
+        case "outp_daily":
+          this.$router.push({ path: "/outp_daily" });
           break;
-        case "out_receipt":
-          this.$router.push({ path: "/outreceipt" });
+        case "medi_daily":
+          this.$router.push({ path: "/medi_daily" });
           break;
-        case "detail_reg":
-          this.$router.push({ path: "/detailreg" });
+        case "medrec_prn":
+          this.$router.push({ path: "/medrec_prn" });
           break;
-        case "detail_cash":
-          this.$router.push({ path: "/detailcash" });
+        case "medrec_copy":
+          this.$router.push({ path: "/medrec_copy" });
           break;
-        case "detail_chk":
-          this.$router.push({ path: "/detailchk" });
+        case "data_upload":
+          this.$router.push({ path: "/data_upload" });
           break;
         case "detail_undo":
           this.$router.push({ path: "/detailundo" });
@@ -364,11 +312,26 @@ export default {
         case "mg_dict":
           this.$router.push({ path: "/mgdict" });
           break;
-        case "medrec_info":
-          this.$router.push({ path: "/medrecinfo" });
+        case "dict_icd9_cm":
+          this.$router.push({ path: "/dictIcd9Cm" });
           break;
         case "dict_icd10":
           this.$router.push({ path: "/dictIcd10" });
+          break;
+        case "medrec_file":
+          this.$router.push({ path: "/medrec_file" });
+          break;
+        case "medrec_borrow":
+          this.$router.push({ path: "/medrec_borrow" });
+          break;
+        case "medrec_track":
+          this.$router.push({ path: "/medrec_track" });
+          break;
+        case "role_setter":
+          this.$router.push({ path: "/role_setter" });
+          break;
+        case "user_setter":
+          this.$router.push({ path: "/user_setter" });
           break;
         default:
           localStorage.removeItem("user");

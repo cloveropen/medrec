@@ -1,6 +1,11 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage
+      v-bind:dialogSuccess="dialogSuccess"
+      v-bind:dialogError="dialogError"
+      v-bind:dialogSuccessContent="dialogSuccessContent"
+      v-bind:dialogErrorContent="dialogErrorContent"
+    />
     <v-container>
       <div>
         <v-toolbar class="elevation-0">
@@ -69,47 +74,48 @@ import Basepage from "../components/Basepage";
 export default {
   components: {
     Basepage
-  }, 
-  mounted:
-   function () {
-      let sel = this;
-          fetch(process.env.VUE_APP_MAIN_URL+"medrec", {
-              method: "get",
-              mode: "cors", 
-              headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-              }
-        })
-        .then(function(response) {
-          if (response.ok) {
-          } else {
-            window.alert("查询失败error");
-            sel.loginmsg = "查询失败" + response.err;
-          }
-          return response.json();
-        })
-        .then(function(data) {
-           console.log("data=" + JSON.stringify(data)); // this will be a string
-          let topstatus = data.resultCode;
-          if (topstatus == "0") {
-           console.log(topstatus); // this will be a string
-           sel.desserts=JSON.parse(data.outdata);
-          } else {
-            //查询失败
-            window.alert("查询失败!\n");
-            sel.loginmsg = "查询失败";
-          }
-        })
-        .catch(function(err) {
-          window.alert("error=" + err);
-        });
-    },
+  },
+  mounted: function() {
+    let sel = this;
+    fetch(process.env.VUE_APP_MAIN_URL + "medrec", {
+      method: "get",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function(response) {
+        if (!response.ok) {
+          sel.dialogError = true;
+          sel.dialogErrorContent = "请求失败 " + response.err;
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        console.log("data=" + JSON.stringify(data)); // this will be a string
+        let topstatus = data.resultCode;
+        if (topstatus == "0") {
+          sel.desserts = JSON.parse(data.outdata);
+        } else {
+          sel.dialogError = true;
+          sel.dialogErrorContent = data.errorMsg;
+        }
+      })
+      .catch(function(err) {
+        sel.dialogError = true;
+        sel.dialogErrorContent = "请求异常：" + err;
+      });
+  },
   data: () => ({
     dateBegin: new Date().toISOString().substr(0, 10),
     dateEnd: new Date().toISOString().substr(0, 10),
     menu1: false,
     menu2: false,
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
     items: [
       {
         text: "患者查询",
@@ -129,7 +135,6 @@ export default {
       { text: "年龄", value: "age" },
       { text: "出生日期", value: "birthday" },
       { text: "现住址", value: "presentAddr" }
-      
     ],
     desserts: []
   })

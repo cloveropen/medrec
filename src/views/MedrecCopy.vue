@@ -1,6 +1,6 @@
 <template>
   <v-app id="medrec.cloveropen.com">
-    <Basepage />
+    <Basepage v-bind:dialogSuccess="dialogSuccess" v-bind:dialogError="dialogError" v-bind:dialogSuccessContent="dialogSuccessContent" v-bind:dialogErrorContent="dialogErrorContent"/>
     <v-container>
       <div>
         <v-toolbar class="elevation-0">
@@ -111,6 +111,10 @@ export default {
     menu1: false,
     menu2: false,
     copyRegister:[],
+    dialogSuccess: false,
+    dialogError: false,
+    dialogSuccessContent: "",
+    dialogErrorContent: "",
   }),
   computed: {
     dateRangeText() {
