@@ -16,7 +16,7 @@
     "vue-html-to-paper": "^1.3.1",
     "vue-pdf": "^4.0.8",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.2.27",
+    "vuetify": "^2.6.10",
     "vuex": "^3.3.0"
   },
   "devDependencies": {
